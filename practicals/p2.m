@@ -20,6 +20,26 @@ outerProd = X * X';
 %1.3
 
 Px = outerProd / innerProd;
+tol = 0.0000001
+
+sumPxDiff = sum(sum(abs(Px*Px - Px)))
+assert(sumPxDiff < tol);
+
+% 1.4
+PxY = Px * Y;
+ImPxY = (eye(size(Px)) - Px) * Y;
+
+% vectors are perp
+assert(abs(PxY' * ImPxY) < tol);
+
+% PxY is parallel to X - X ./ PxY should contain the same entry everywhere.
+X ./ PxY
+
+% I - pX is perp to Y - their dot product is 0
+assert(abs(X' * ImPxY) < tol) 
+
+% 1.5
+
 
 
 end
