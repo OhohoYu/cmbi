@@ -49,10 +49,37 @@ end
 
 function partC(SAMPLE_SIZE, X, Y)
 
-% i 
+tol = 0.00001;
+% ii 
 M = X*inv(X'*X)*X';
 
+% iii
+Yhat = M * Y;
 
+e = (eye(size(M)) - M) * Y;
 
+% cosine is almost zero, suggesting the vectors are perpendicular
+cosYe = sum(Yhat' * e)/(norm(Yhat)*norm(e))
+
+assert(abs(cosYe) < tol);
+
+% iv
+beta = inv(X'*X)*X' * Y;
+
+% v
+[n, dimX] = size(X);
+variance = e'*e/(n - dimX);
+
+% vi
+
+Sb = variance * inv(X'*X)
+
+std1 = sqrt(Sb(1,1));
+std2 = sqrt(Sb(2,2));
+
+% vii 
+U = [1;1];
+
+X0 = X * U;
 
 end
