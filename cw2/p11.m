@@ -56,10 +56,10 @@ M = X*inv(X'*X)*X';
 % iii
 Yhat = M * Y;
 
-e = (eye(size(M)) - M) * Y;
+eHat = (eye(size(M)) - M) * Y;
 
 % cosine is almost zero, suggesting the vectors are perpendicular
-cosYe = sum(Yhat' * e)/(norm(Yhat)*norm(e))
+cosYe = sum(Yhat' * eHat)/(norm(Yhat)*norm(eHat))
 
 assert(abs(cosYe) < tol);
 
@@ -68,7 +68,7 @@ beta = inv(X'*X)*X' * Y;
 
 % v
 [n, dimX] = size(X);
-variance = e'*e/(n - dimX);
+variance = eHat'*eHat/(n - dimX);
 
 % vi
 
@@ -81,5 +81,35 @@ std2 = sqrt(Sb(2,2));
 U = [1;1];
 
 X0 = X * U;
+
+% viii
+
+M0 = X0*inv(X0'*X0)*X0';
+
+Yhat0 = M0 * Yhat;
+r = 1;
+
+YhatC = norm(Yhat - Yhat0); % additional error 
+
+F = (norm(Yhat - Yhat0)^2 / r) / variance;
+
+% ix
+C = [1; -1]
+t = (C' * beta)/sqrt(C' * Sb * C);
+
+assert(abs(t^2 - F) < tol);
+
+% xi
+
+betaTrue = [1; 1.5];
+
+eTrue = Y - X*betaTrue;
+% projection of e onto C(X)
+eX = M * eTrue;
+
+% projection of e onto error space
+eE = (eye(size(M)) - M) * eTrue;
+
+
 
 end

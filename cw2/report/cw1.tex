@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper,oneside]{report}
+\documentclass[12pt,a4paper,oneside]{report}
 \usepackage{amsmath,amssymb,calc,ifthen}
 \usepackage{float}
 %\usepackage{cancel}
@@ -168,38 +168,49 @@ The t-test results in a t-statistic of -6.99, rejecting the null hypothesis with
 
 \subsection*{(c)}
 
-i. $dim(X) = 2$ because $X$ is made of two column vectors that are linearly independent.
+\textbf{i.} $dim(X) = 2$ because $X$ is made of two column vectors that are linearly independent.\\
 
 \rowcolors{1}{}{}
-ii. $Y = X\beta \to X^TY = X^TX\beta \to (X^TX)^{-1}X^TY = \beta \to X(X^TX)^{-1}X^TY = X\beta$. Since $MY = X\beta$, we deduce $M = X(X^TX)^{-1}X^T$. In our case $M = 
+\textbf{ii.} $Y = X\beta \to X^TY = X^TX\beta \to (X^TX)^{-1}X^TY = \beta \to X(X^TX)^{-1}X^TY = X\beta$. Since $MY = X\beta$, we deduce $M = X(X^TX)^{-1}X^T$. In our case $M = 
 0.04 * \begin{pmatrix}
 I_n & 0\\
 0 & I_n
 \end{pmatrix}
 $
-where $I_n$ is an n x n matrix full of 1s.
+where $I_n$ is an n x n matrix full of 1s.\\
 % TODO fix the matrix above
                  
                  
-iii. $\hat{Y} = MY $ and $\hat{e} = (I-M)Y $. The cosine between the vectors is almost zero (-4.1352e-16) which means that the vectors are perpendicular to each other. This is what we expected, since the column space and error space are orthogonal to each other.
+\textbf{iii.} $\hat{Y} = MY $ and $\hat{e} = (I-M)Y $. The cosine between the vectors is almost zero (-4.1352e-16) which means that the vectors are perpendicular to each other. This is what we expected, since the column space and error space are orthogonal to each other.\\
 
-iv. We know that $Y = X\beta$. Pre-multiplying by $X^T$ gives $X^TY = X^TX\beta$. Now matrix $X^TX$ is a square matrix and can normally be inverted. We therefore further pre-multiply by $(X^TX)^{-1}$ and get $(X^TX)^{-1}X^TY = \beta$, the model parameters. For out problem we get the estimated parameters $\beta = [0.9848, 1.4944]$.
+\textbf{iv.} We know that $Y = X\beta$. Pre-multiplying by $X^T$ gives $X^TY = X^TX\beta$. Now matrix $X^TX$ is a square matrix and can normally be inverted. We therefore further pre-multiply by $(X^TX)^{-1}$ and get $(X^TX)^{-1}X^TY = \beta$, the model parameters. For out problem we get the estimated parameters $\beta = [0.9848, 1.4944]$.\\
 
-v. $$\hat{\sigma}^2 = \frac{\hat{e}'\hat{e}}{n - dim(X)} = \frac{(Y - X\hat{\beta})'(Y - X\hat{\beta})}{n - dim(X)}$$
+\textbf{v.} $$\hat{\sigma}^2 = \frac{\hat{e}'\hat{e}}{n - dim(X)} = \frac{(Y - X\hat{\beta})'(Y - X\hat{\beta})}{n - dim(X)}$$
 
-This is called the \emph{Mean Squared Error} because it is an unbiased estimate of the error in the prediction. The upper term $(Y - X\hat{\beta})'(Y - X\hat{\beta})$ is the sum of squared differenced between the observations and the predicted values. This is then divided by the number of degrees of freedom, which is $N - 2$ in our case. For our error vector we get $\hat{\sigma}^2 = 0.0664$
+This is called the \emph{Mean Squared Error} because it is an unbiased estimate of the error in the prediction. The upper term $(Y - X\hat{\beta})'(Y - X\hat{\beta})$ is the sum of squared differenced between the observations and the predicted values. This is then divided by the number of degrees of freedom, which is $N - 2$ in our case. For our error vector we get $\hat{\sigma}^2 = 0.0664$\\
 
-vi.
-
-$S_{\hat{\beta}} = \begin{pmatrix}
+\textbf{vi.} $S_{\hat{\beta}} = \begin{pmatrix}
 0.0027 & 0\\
 0 & 0.0027
-\end{pmatrix}$. From $Sb$ we can calculate $std(\beta_1) = \sqrt{Sb(1,1)} = 0.0515$. Similarly we get  $std(\beta_2) = \sqrt{Sb(2,2)} = 0.0515$
+\end{pmatrix}$. From $S_{\hat{\beta}}$ we can calculate $std(\beta_1) = \sqrt{Sb(1,1)} = 0.0515$. Similarly we get  $std(\beta_2) = \sqrt{S_{\hat{\beta}}(2,2)} = 0.0515$\\
 
-vii. $C = [1 -1] \to C\beta = \beta_1 - \beta_2 = 0$. By setting $\beta_1 = \beta_2 = \gamma$ we then solve $Y = X_0\gamma = XU\gamma$ so it must be the case that $\beta = U\gamma$. Solving this for our conditions gives $U = [1, 1]^T$. Then the reduced model $X_0 = XU = [1 \dots 1]^T $ where the length of $X_0$ is 50. 
+\textbf{vii.} $C = [1 -1] \to C\beta = \beta_1 - \beta_2 = 0$. By setting $\beta_1 = \beta_2 = \gamma$ we then solve $Y = X_0\gamma = XU\gamma$ so it must be the case that $\beta = U\gamma$. Solving this for our conditions gives $U = [1, 1]^T$. Then the reduced model $X_0 = XU = [1 \dots 1]^T $ where the length of $X_0$ is 50. \\
 
 
-viii. 
+\textbf{viii.} If $\hat{Y}$ and $\hat{Y_c}$ are the predicted values using the full and constrained models respectively, then $\hat{Y_{\perp c}} = \hat{Y} - \hat{Y_c}$ is the additional error. For our data we get $|\hat{Y_{\perp c}}| = 1.8017$. Using the MSE we got from (v), we get 
+
+$$F = \frac{|\hat{Y}_{\perp c}|^2 / r}{|\hat{e}|^2 / (N - p)} = 48.89$$
+
+Since $F > 3.68$, we reject $H_0$ at $a = 0.05$ confidence level (i.e. the two samples come from different groups).\\
+
+\textbf{ix.}
+
+The t-statistic is -6.99 and is exactly the same as the one calculated in point b). \\
+
+\textbf{x. }
+
+The model parameters 
+
 \end{document}
 
 
