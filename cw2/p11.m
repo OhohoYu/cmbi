@@ -43,73 +43,40 @@ X = [repmat([1 0], SAMPLE_SIZE,1); repmat([0 1], SAMPLE_SIZE,1)];
 
 Y = [Y0;Y1];
 
-partC(SAMPLE_SIZE, X, Y)
+C = [1; -1];
+dimXc = 3;
+% M = calcAll(X, Y, C, dimXc)
 
-end
+% % xi
+% betaTrue = [1; 1.5];
+% 
+% eTrue = Y - X*betaTrue;
+% % projection of e onto C(X)
+% eX = M * eTrue;
+% % xii
+% % projection of e onto error space
+% eE = (eye(size(M)) - M) * eTrue;
 
-function partC(SAMPLE_SIZE, X, Y)
+%% d
 
-tol = 0.00001;
-% ii 
-M = X*inv(X'*X)*X';
+% X = 3x50, column space dim(X) = 2
+X = [repmat([1 1 0], SAMPLE_SIZE,1); repmat([1 0 1], SAMPLE_SIZE,1)];
 
-% iii
-Yhat = M * Y;
+C = [0; 1; -1];
+dimXd = 2;
+%calcAll(X, Y, C, dimXd);
 
-eHat = (eye(size(M)) - M) * Y;
+%% e
 
-% cosine is almost zero, suggesting the vectors are perpendicular
-cosYe = sum(Yhat' * eHat)/(norm(Yhat)*norm(eHat))
+%  X = 2x50, column space dim(X) = 2
+X = [repmat([1 1], SAMPLE_SIZE,1); repmat([1 0], SAMPLE_SIZE,1)];
 
-assert(abs(cosYe) < tol);
-
-% iv
-beta = inv(X'*X)*X' * Y;
-
-% v
-[n, dimX] = size(X);
-variance = eHat'*eHat/(n - dimX);
-
-% vi
-
-Sb = variance * inv(X'*X)
-
-std1 = sqrt(Sb(1,1));
-std2 = sqrt(Sb(2,2));
-
-% vii 
-U = [1;1];
-
-X0 = X * U;
-
-% viii
-
-M0 = X0*inv(X0'*X0)*X0';
-
-Yhat0 = M0 * Yhat;
-r = 1;
-
-YhatC = norm(Yhat - Yhat0); % additional error 
-
-F = (norm(Yhat - Yhat0)^2 / r) / variance;
-
-% ix
-C = [1; -1]
-t = (C' * beta)/sqrt(C' * Sb * C);
-
-assert(abs(t^2 - F) < tol);
-
-% xi
-
-betaTrue = [1; 1.5];
-
-eTrue = Y - X*betaTrue;
-% projection of e onto C(X)
-eX = M * eTrue;
-
-% projection of e onto error space
-eE = (eye(size(M)) - M) * eTrue;
+C = [0; 1];
+dimXe = 2;
+calcAll(X, Y, C, dimXe);
 
 
 
 end
+
+
