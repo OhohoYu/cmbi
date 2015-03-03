@@ -20,6 +20,7 @@ Y1 = MU1 + MUError + STD_DEV .* randn(SAMPLE_SIZE1, 1);
 % apply t-test, H should be 1
 [H,P,CI,STATS] = ttest2(Y0, Y1);
 
+Tval = STATS.tstat
 %% b
 
 D = [Y0; Y1];
@@ -30,7 +31,7 @@ indRev = indices(end:-1:1)
 I1 = combnk(indices, 6);
 NR_PERMS = size(I1,1);
 I2 = zeros(NR_PERMS,8);
-tstats = zeros(NR_PERMS, 8);
+tstats = zeros(NR_PERMS, 1);
 
 D1 = D(I1);
 
@@ -41,6 +42,11 @@ for i=1:NR_PERMS
   tstats(i) = STATS.tstat;
 end
 
+pVal = nnz(tstats > P)/NR_PERMS;
+
+%% c
+
+meansDiff = mean(Y0) - mean(Y1);
 
 
 
