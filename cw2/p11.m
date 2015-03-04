@@ -44,7 +44,10 @@ X = [repmat([1 0], SAMPLE_SIZE,1); repmat([0 1], SAMPLE_SIZE,1)];
 Y = [Y0;Y1];
 
 C = [1; -1];
-dimXc = 3;
+dimXc = 2; % it is not 3, as I had it before
+
+t = calcT(X, Y, C, dimXc);
+
 % M = calcAll(X, Y, C, dimXc)
 
 % % xi
