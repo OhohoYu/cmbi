@@ -18,7 +18,7 @@ Y1 = MU1 + MUError + STD_DEV .* randn(SAMPLE_SIZE1, 1);
 %% a
 
 % apply t-test, H should be 1
-[H,P,CI,STATS] = ttest2(Y0, Y1);
+[H,P,CI,STATS] = ttest2(Y1, Y0);
 
 Tval = STATS.tstat
 %% b
@@ -42,7 +42,7 @@ for i=1:NR_PERMS
   tstats(i) = STATS.tstat;
 end
 
-pVal = nnz(tstats > P)/NR_PERMS;
+pVal = nnz(tstats > Tval)/NR_PERMS;
 
 %% c
 

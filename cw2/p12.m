@@ -29,11 +29,14 @@ X = [repmat([1 1], SAMPLE_SIZE,1); repmat([1 0], SAMPLE_SIZE,1)];
 S = [eye(SAMPLE_SIZE); eye(SAMPLE_SIZE)];
 
 X = [X, S];
-C = ones(SAMPLE_SIZE + 2, 1);
-C(1) = 0;
+%C = ones(SAMPLE_SIZE + 2, 1);
+%C(1) = 0;
 %C(2) = 0;
 
-dimX = 27;
+C = zeros(SAMPLE_SIZE + 2, 1);
+C(2) = 1;
+
+dimX = 26; % because one dimension is lost due to the contrast
 
 [M, t] = calcAll(X, Y, C, dimX)
 
