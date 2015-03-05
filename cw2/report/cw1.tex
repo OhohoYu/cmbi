@@ -173,17 +173,16 @@ The t-test results in a t-statistic of -6.99, rejecting the null hypothesis with
 \rowcolors{1}{}{}
 \textbf{ii.} $Y = X\beta \to X^TY = X^TX\beta \to (X^TX)^{-1}X^TY = \beta \to X(X^TX)^{-1}X^TY = X\beta$. Since $MY = X\beta$, we deduce $M = X(X^TX)^{-1}X^T$. In our case $M = 
 0.04 * \begin{pmatrix}
-I_n & 0\\
-0 & I_n
+\mathbb{I}_N & 0\\
+0 & \mathbb{I}_N
 \end{pmatrix}
 $
-where $I_n$ is an n x n matrix full of 1s.\\
-% TODO fix the matrix above
+where $\mathbb{I}_N$ is an $N \times N$ matrix full of 1s.\\
                  
                  
-\textbf{iii.} $\hat{Y} = MY $ and $\hat{e} = (I-M)Y $. The cosine between the vectors is almost zero (-4.1352e-16) which means that the vectors are perpendicular to each other. This is what we expected, since the column space and error space are orthogonal to each other.\\
+\textbf{iii.} $\hat{Y} = MY = [ 0.9848 \dots 0.9848 \; 1.4944 \dots 1.4944]^T$ and $\hat{e} = (I-M)Y$. The cosine between the vectors is almost zero (-4.1352e-16) which means that the vectors are perpendicular. This is what we expected, since the column space and error space are orthogonal.\\
 
-\textbf{iv.} We know that $Y = X\beta$. Pre-multiplying by $X^T$ gives $X^TY = X^TX\beta$. Now matrix $X^TX$ is a square matrix and can normally be inverted. We therefore further pre-multiply by $(X^TX)^{-1}$ and get $(X^TX)^{-1}X^TY = \beta$, the model parameters. For out problem we get the estimated parameters $\beta = [0.9848, 1.4944]$.\\
+\textbf{iv.} We know that $Y = X\beta$. Pre-multiplying by $X^T$ gives $X^TY = X^TX\beta$. Now matrix $X^TX$ is a square matrix and can normally be inverted. We therefore further pre-multiply by $(X^TX)^{-1}$ and get $(X^TX)^{-1}X^TY = \beta$, the model parameters. For our problem we get the estimated parameters $\beta = [0.9848, 1.4944]$, which are very close to the ground truth values of $[1, 1.5]$\\
 
 \textbf{v.} $$\hat{\sigma}^2 = \frac{\hat{e}'\hat{e}}{n - dim(X)} = \frac{(Y - X\hat{\beta})'(Y - X\hat{\beta})}{n - dim(X)}$$
 
@@ -194,10 +193,10 @@ This is called the \emph{Mean Squared Error} because it is an unbiased estimate 
 0 & 0.0027
 \end{pmatrix}$. From $S_{\hat{\beta}}$ we can calculate $std(\beta_1) = \sqrt{Sb(1,1)} = 0.0515$. Similarly we get  $std(\beta_2) = \sqrt{S_{\hat{\beta}}(2,2)} = 0.0515$\\
 
-\textbf{vii.} $C = [1 -1] \to C\beta = \beta_1 - \beta_2 = 0$. By setting $\beta_1 = \beta_2 = \gamma$ we then solve $Y = X_0\gamma = XU\gamma$ so it must be the case that $\beta = U\gamma$. Solving this for our conditions gives $U = [1, 1]^T$. Then the reduced model $X_0 = XU = [1 \dots 1]^T $ where the length of $X_0$ is 50. \\
+\textbf{vii.} $C = [1, -1] \to C\beta = \beta_1 - \beta_2 = 0$. By setting $\beta_1 = \beta_2 = \gamma$ we then solve $Y = X_0\gamma = XU\gamma$ so it must be the case that $\beta = U\gamma$. Solving this for our conditions gives $U = [1, 1]^T$. Then the reduced model $X_0 = XU = [1 \dots 1]^T $ where the length of $X_0$ is 50. \\
 
 
-\textbf{viii.} If $\hat{Y}$ and $\hat{Y_c}$ are the predicted values using the full and constrained models respectively, then $\hat{Y_{\perp c}} = \hat{Y} - \hat{Y_c}$ is the additional error. For our data we get $|\hat{Y_{\perp c}}| = 1.8017$. Using the MSE we got from (v), we get 
+\textbf{viii.} If $\hat{Y}$ and $\hat{Y_c}$ are the predicted values using the full and constrained models respectively, then $\hat{Y}_{\perp c} = \hat{Y} - \hat{Y_c}$ is the additional error. For our data we get $|\hat{Y_{\perp c}}| = 1.8017$. Using the MSE we got from (v), we get 
 
 $$F = \frac{|\hat{Y}_{\perp c}|^2 / r}{|\hat{e}|^2 / (N - p)} = 48.89$$
 
@@ -209,7 +208,16 @@ The t-statistic is -6.99 and is exactly the same as the one calculated in point 
 
 \textbf{x. }
 
-The model parameters 
+The model parameters represent the \emph{estimated values} for the means of the distributions that we used to sample the data from. In our case we get $\hat{\beta} = [0.9848, 1.4944]$ which are close to the true values of $\beta = [1, 1.5]$.
+
+\textbf{xi. }
+
+$e_c = M e = [-0.0152 \dots -0.0152 \; -0.0056 \dots -0.0056 ]$ where elements from each part of the array are exactly the differece between $\hat{\beta} - \beta = [-0.0152 \; -0.0056]$. $e_c$ represents the error component that doesn't come from noise, but from the wrong estimates of $\hat{\beta}$ that are not equal to the true $\beta$.
+
+\textbf{xii. }
+
+$e_e = (I - M) e = (I - M) (Y - X\beta) = (I - M)Y - (I - M)X\beta = \hat{e} - 0 = \hat{e}$ because $(I-M)$ and $X\beta$ are orthogonal. In our example we indeed get that $e_e = \hat{e}$, so they 
+
 
 \end{document}
 

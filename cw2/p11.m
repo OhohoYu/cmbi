@@ -48,17 +48,17 @@ dimXc = 2; % it is not 3, as I had it before
 
 t = calcT(X, Y, C, dimXc);
 
-% M = calcAll(X, Y, C, dimXc)
+M = calcAll(X, Y, C, dimXc);
 
-% % xi
-% betaTrue = [1; 1.5];
-% 
-% eTrue = Y - X*betaTrue;
-% % projection of e onto C(X)
-% eX = M * eTrue;
-% % xii
-% % projection of e onto error space
-% eE = (eye(size(M)) - M) * eTrue;
+% xi
+betaTrue = [1; 1.5];
+
+eTrue = Y - X*betaTrue;
+% projection of e onto C(X)
+eX = M * eTrue;
+% xii
+% projection of e onto error space
+eE = (eye(size(M)) - M) * eTrue;
 
 %% d
 
