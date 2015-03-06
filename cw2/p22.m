@@ -29,7 +29,7 @@ wm_mask = reshape(data, [40 40 40]); % dimension 40x40x40
 
 % b
 
-[pVals, maxP] = partBv2(CPAdata, PPAdata, wm_mask, SUBJECTS, RES);
+[pVals, pVal, tThresh] = partBv2(CPAdata, PPAdata, wm_mask, SUBJECTS, RES);
 
 end
 
@@ -117,7 +117,7 @@ save('pValsPerm.mat', 'pVals', 'matlabPVals', 'tThresh', 'maxP');
 end
 
 
-function [maxTs, maxP] = partBv2(CPAdata, PPAdata, wm_mask, SUBJECTS, RES)
+function [maxTs, pVal, tThresh] = partBv2(CPAdata, PPAdata, wm_mask, SUBJECTS, RES)
 
 %RES = 2;
 
