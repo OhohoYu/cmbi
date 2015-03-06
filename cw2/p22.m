@@ -146,7 +146,9 @@ mask_lin= reshape(wm_mask, [1 RES^3]);
 
 % b
 maxTs = zeros(NR_PERMS,1);
+%NR_PERMS = 10;
 for p=1:NR_PERMS
+    p
     ind0 = repmat(I0(p,:), [RES^3 1]);
     ind1 = repmat(I1(p,:), [RES^3 1]);
     
@@ -155,11 +157,11 @@ end
 
 maxTOrig = calcMaxTImages(D0, D1, mask_lin, X, C, dimX);
 % c
-maxP = nnz(maxTs > maxTOrig)/RES^3;
+pVal = nnz(maxTs > maxTOrig)/NR_PERMS;
 
 % d
-tThresh = maxTs(floor(RES^3 * 95/100));
+tThresh = maxTs(floor(NR_PERMS * 95/100));
 
-save('pValsPerm.mat', 'maxTs', 'maxP', 'tThresh');
+save('pValsPerm.mat', 'maxTs', 'pVal', 'tThresh', 'maxTOrig');
 
 end

@@ -1,5 +1,8 @@
 function maxT = calcMaxTImages(D0, D1, wm_mask, X, C, dimX)
 
+
+NR_PERMS = size(D0, 1);
+
 M = X*pinv(X'*X)*X';
 ImM = (eye(size(M)) - M);
 [n, ~] = size(X);
