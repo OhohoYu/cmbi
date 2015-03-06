@@ -77,25 +77,20 @@ dup_nr = 0;
 for i=1:NR_PERMS_RAND
   i
   for j=i+1:NR_PERMS_RAND
-    if (sum (abs(perms(i,:) - perms(j,:))) == 0)
+    if (permsEqual(perms(i,:), perms(j,:)))
       dup_nr = dup_nr + 1;
       fprintf('i:%d j:%d', i, j);
       break;
     end
   end
-end
+end 
 
 dup_tstatsD = 0;
 sortedTstatsD = sort(tstatsD);
 
-for i=1:NR_PERMS_RAND-1
-  if (sortedTstatsD(i) == sortedTstatsD(i+1))
-    dup_tstatsD = dup_tstatsD+1;
-    i
-  end
+
 end
 
-
-
+function C = permsEqual(perm1, perm2)
 
 end

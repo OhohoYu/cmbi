@@ -29,6 +29,8 @@ wm_mask = reshape(data, [40 40 40]); % dimension 40x40x40
 
 % b
 
+%[pVals, maxP] = partB(CPAdata, PPAdata, wm_mask, SUBJECTS, RES);
+
 [pVals, pVal, tThresh] = partBv2(CPAdata, PPAdata, wm_mask, SUBJECTS, RES);
 
 end
@@ -133,6 +135,7 @@ indices = 1:SAMPLE_SIZE0+SAMPLE_SIZE1;
 
 % make the permutations
 I0 = combnk(indices, SAMPLE_SIZE0);
+%D0 = combnk(D, SAMPLE_SIZE0);
 NR_PERMS = size(I0,1);
 
 I1 = zeros(NR_PERMS,SAMPLE_SIZE1);
@@ -142,6 +145,8 @@ end
 
 D0 = reshape(CPAdata, [SAMPLE_SIZE0 RES^3])';
 D1 = reshape(PPAdata, [SAMPLE_SIZE1 RES^3])';
+
+D = [D0, D1];
 mask_lin= reshape(wm_mask, [1 RES^3]);
 
 % b
@@ -149,10 +154,10 @@ maxTs = zeros(NR_PERMS,1);
 %NR_PERMS = 10;
 for p=1:NR_PERMS
     p
-    ind0 = repmat(I0(p,:), [RES^3 1]);
-    ind1 = repmat(I1(p,:), [RES^3 1]);
+    %ind0 = repmat(I0(p,:), [RES^3 1]);
+    %ind1 = repmat(I1(p,:), [RES^3 1]);
     
-    maxTs(p) = calcMaxTImages(D0(ind0), D1(ind1), mask_lin, X, C, dimX);
+    maxTs(p) = calcMaxTImages(D(:,I0(p,:)), D(:,I1(p,:)), mask_lin, X, C, dimX);
 end
 
 maxTOrig = calcMaxTImages(D0, D1, mask_lin, X, C, dimX);
@@ -160,7 +165,8 @@ maxTOrig = calcMaxTImages(D0, D1, mask_lin, X, C, dimX);
 pVal = nnz(maxTs > maxTOrig)/NR_PERMS;
 
 % d
-tThresh = maxTs(floor(NR_PERMS * 95/100));
+maxTsSorted = sort(maxTs);
+tThresh = maxTsSorted(floor(NR_PERMS * 95/100));
 
 save('pValsPerm.mat', 'maxTs', 'pVal', 'tThresh', 'maxTOrig');
 

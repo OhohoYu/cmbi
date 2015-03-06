@@ -149,7 +149,7 @@ EPSRC Centre for Doctoral Training in Medical Imaging\\ University College Londo
 
 \rowcolors{1}{gray!25}{white}
 
-\subsection*{Q1}
+\subsection*{Part 1 - Q1}
 \subsection*{(a)}
 
 \begin{center}
@@ -167,10 +167,15 @@ The new values are as expected, lying within a 0.04 tolerance level.
 The t-test results in a t-statistic of -6.99, rejecting the null hypothesis with a p-value of 7.55e-09 which is very low. We are very confident the two samples were generated from distributions with different means, which is indeed the case (means of 1 and 1.5).
 
 \subsection*{(c)}
-
-\textbf{i.} $dim(X) = 2$ because $X$ is made of two column vectors that are linearly independent.\\
-
 \rowcolors{1}{}{}
+
+\textbf{i.} $X = \begin{pmatrix}
+1 & \dots & 1 & 1 & \dots & 1\\
+0 & \dots & 0 & 1 & \dots & 1\\
+
+\end{pmatrix}^T$ and $dim(X) = 2$ because $X$ is made of two column vectors that are linearly independent.\\
+
+
 \textbf{ii.} $Y = X\beta \to X^TY = X^TX\beta \to (X^TX)^{-1}X^TY = \beta \to X(X^TX)^{-1}X^TY = X\beta$. Since $MY = X\beta$, we deduce $M = X(X^TX)^{-1}X^T$. In our case $M = 
 0.04 * \begin{pmatrix}
 \mathbb{I}_N & 0\\
@@ -216,8 +221,62 @@ $e_c = M e = [-0.0152 \dots -0.0152 \; -0.0056 \dots -0.0056 ]$ where elements f
 
 \textbf{xii. }
 
-$e_e = (I - M) e = (I - M) (Y - X\beta) = (I - M)Y - (I - M)X\beta = \hat{e} - 0 = \hat{e}$ because $(I-M)$ and $X\beta$ are orthogonal. In our example we indeed get that $e_e = \hat{e}$, so they 
+$e_e = (I - M) e = (I - M) (Y - X\beta) = (I - M)Y - (I - M)X\beta = \hat{e} - 0 = \hat{e}$ because $(I-M)$ and $X\beta$ are orthogonal. In our example we indeed get that $e_e = \hat{e}$.
 
+
+\subsection*{(d)}
+
+
+
+\subsection*{(e)}
+
+\subsection*{(f)}
+
+\subsection*{Part 1 - Q2}
+
+\subsection*{(a)}
+
+\subsection*{(b)}
+
+\textbf{i. }
+
+\textbf{ii. }
+
+\textbf{iii. }
+
+\subsection*{Part 2 - Q1}
+
+\subsection*{(a)}
+
+\subsection*{(b)}
+
+\textbf{i. }
+
+\textbf{ii. }
+
+\textbf{iii. }
+
+\textbf{iv. }
+
+\subsection*{(c)}
+
+\subsection*{(d)}
+
+\textbf{i. }
+
+\textbf{ii. }
+
+\textbf{iii. }
+
+\subsection*{Part 2 - Q2}
+
+\subsection*{(a)}
+
+\subsection*{(b)}
+
+\subsection*{(c)}
+
+\subsection*{(d)}
 
 \end{document}
 
