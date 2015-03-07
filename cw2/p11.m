@@ -67,7 +67,7 @@ X = [repmat([1 1 0], SAMPLE_SIZE,1); repmat([1 0 1], SAMPLE_SIZE,1)];
 
 C = [0; 1; -1];
 dimXd = 2;
-%calcAll(X, Y, C, dimXd);
+calcAll(X, Y, C, dimXd);
 
 %% e
 

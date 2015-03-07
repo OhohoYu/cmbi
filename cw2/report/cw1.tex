@@ -170,7 +170,7 @@ The t-test results in a t-statistic of -6.99, rejecting the null hypothesis with
 \rowcolors{1}{}{}
 
 \textbf{i.} $X = \begin{pmatrix}
-1 & \dots & 1 & 1 & \dots & 1\\
+1 & \dots & 1 & 0 & \dots & 0\\
 0 & \dots & 0 & 1 & \dots & 1\\
 
 \end{pmatrix}^T$ and $dim(X) = 2$ because $X$ is made of two column vectors that are linearly independent.\\
@@ -198,7 +198,7 @@ This is called the \emph{Mean Squared Error} because it is an unbiased estimate 
 0 & 0.0027
 \end{pmatrix}$. From $S_{\hat{\beta}}$ we can calculate $std(\beta_1) = \sqrt{Sb(1,1)} = 0.0515$. Similarly we get  $std(\beta_2) = \sqrt{S_{\hat{\beta}}(2,2)} = 0.0515$\\
 
-\textbf{vii.} $C = [1, -1] \to C\beta = \beta_1 - \beta_2 = 0$. By setting $\beta_1 = \beta_2 = \gamma$ we then solve $Y = X_0\gamma = XU\gamma$ so it must be the case that $\beta = U\gamma$. Solving this for our conditions gives $U = [1, 1]^T$. Then the reduced model $X_0 = XU = [1 \dots 1]^T $ where the length of $X_0$ is 50. \\
+\textbf{vii.} $C = [1, -1]^T \to C'\beta = \beta_1 - \beta_2 = 0$. By setting $\beta_1 = \beta_2 = \gamma$ we then solve $Y = X_0\gamma = XU\gamma$ so it must be the case that $\beta = U\gamma$. Solving this for our conditions gives $U = [1, 1]^T$. Then the reduced model $X_0 = XU = [1 \dots 1]^T $ where the length of $X_0$ is 50. \\
 
 
 \textbf{viii.} If $\hat{Y}$ and $\hat{Y_c}$ are the predicted values using the full and constrained models respectively, then $\hat{Y}_{\perp c} = \hat{Y} - \hat{Y_c}$ is the additional error. For our data we get $|\hat{Y_{\perp c}}| = 1.8017$. Using the MSE we got from (v), we get 
@@ -207,30 +207,56 @@ $$F = \frac{|\hat{Y}_{\perp c}|^2 / r}{|\hat{e}|^2 / (N - p)} = 48.89$$
 
 Since $F > 3.68$, we reject $H_0$ at $a = 0.05$ confidence level (i.e. the two samples come from different groups).\\
 
-\textbf{ix.}
+\textbf{ix.} The t-statistic is -6.99 and is exactly the same as the one calculated in point b). \\
 
-The t-statistic is -6.99 and is exactly the same as the one calculated in point b). \\
+\textbf{x. } The model parameters represent the \emph{estimated values} for the means of the distributions that we used to sample the data from. In our case we get $\hat{\beta} = [0.9848, 1.4944]$ which are close to the true values of $\beta = [1, 1.5]$.
 
-\textbf{x. }
+\textbf{xi. } $e_c = M e = [-0.0152 \dots -0.0152 \; -0.0056 \dots -0.0056 ]$ where elements from each part of the array are exactly the differece between $\hat{\beta} - \beta = [-0.0152 \; -0.0056]$. $e_c$ represents the error component that doesn't come from noise, but from the wrong estimates of $\hat{\beta}$ that are not equal to the true $\beta$.
 
-The model parameters represent the \emph{estimated values} for the means of the distributions that we used to sample the data from. In our case we get $\hat{\beta} = [0.9848, 1.4944]$ which are close to the true values of $\beta = [1, 1.5]$.
-
-\textbf{xi. }
-
-$e_c = M e = [-0.0152 \dots -0.0152 \; -0.0056 \dots -0.0056 ]$ where elements from each part of the array are exactly the differece between $\hat{\beta} - \beta = [-0.0152 \; -0.0056]$. $e_c$ represents the error component that doesn't come from noise, but from the wrong estimates of $\hat{\beta}$ that are not equal to the true $\beta$.
-
-\textbf{xii. }
-
-$e_e = (I - M) e = (I - M) (Y - X\beta) = (I - M)Y - (I - M)X\beta = \hat{e} - 0 = \hat{e}$ because $(I-M)$ and $X\beta$ are orthogonal. In our example we indeed get that $e_e = \hat{e}$.
-
+\textbf{xii. } $e_e = (I - M) e = (I - M) (Y - X\beta) = (I - M)Y - (I - M)X\beta = \hat{e} - 0 = \hat{e}$ because $(I-M)$ and $X\beta$ are orthogonal. In our example we indeed get that $e_e = \hat{e}$. %TODO add more here
 
 \subsection*{(d)}
 
+\textbf{i. } $X = \begin{pmatrix}
+1 & \dots & 1 & 1 & \dots & 1\\
+1 & \dots & 1 & 0 & \dots & 0\\
+0 & \dots & 0 & 1 & \dots & 1\\
+\end{pmatrix}^T$ and $dim(X) = 2$ because vectors in $X$ are linearly dependent $X_1 = X_2 + X_3$, so at most two vectors are linearly independent. \\
 
+\textbf{ii. } $C = [0, 1, -1]^T \to \beta_1 = \beta_2 \to U = null(C^T) = \begin{pmatrix}
+-0.707 & 0.707\\
+0.5 & 0.5\\
+0.5 & 0.5\\
+\end{pmatrix} \to X_0 = X U = \begin{pmatrix}
+-0.207 & 1.207\\
+\vdots & \vdots\\
+-0.207 & 1.207\\
+\end{pmatrix}$
+
+\textbf{iii. } $t = -6.9923$
+
+\textbf{iv. } $\beta_0$ models the constant factor for both groups, $\beta_1$ models the first group and $\beta_2$ models the second group. However, by removing one of the parameters we still get the same fit, so one of them is redundant ($dim(X) = 2$).
 
 \subsection*{(e)}
 
+\textbf{i. } $X = \begin{pmatrix}
+1 & \dots & 1 & 1 & \dots & 1\\
+1 & \dots & 1 & 0 & \dots & 0\\
+\end{pmatrix}^T$ and $dim(X) = 2$ because $X$ has two vectors that are linearly independent.\\
+
+\textbf{ii. } $C = [0 1]^T \to \beta_0 = 0 \to U = null(C^T) = [-1, 0]^T \to X_0 = X U = \begin{pmatrix}
+-1\\
+\vdots\\
+-1\\
+\end{pmatrix}$
+
+\textbf{iii. } $t = -6.9923$
+
+\textbf{iv. } $\beta_0$ models a constant term for both groups while $\beta_1$ models only the first group. We should have that $\beta_0 + \beta_1 \approx \mu_0 = 1$ and $\beta_0 \approx \mu_1 = 1.5$, which is the case in our solution $\hat{\beta} = [1.49 -0.5]$.
+
 \subsection*{(f)}
+
+
 
 \subsection*{Part 1 - Q2}
 
