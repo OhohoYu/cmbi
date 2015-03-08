@@ -77,7 +77,7 @@ dup_nr = 0;
 for i=1:NR_PERMS_RAND
   i
   for j=i+1:NR_PERMS_RAND
-    if (permsEqual(perms(i,:), perms(j,:)))
+    if (permsEqual(perms(i,:), perms(j,:), SAMPLE_SIZE0))
       dup_nr = dup_nr + 1;
       fprintf('i:%d j:%d', i, j);
       break;
@@ -91,6 +91,16 @@ sortedTstatsD = sort(tstatsD);
 
 end
 
-function C = permsEqual(perm1, perm2)
+function eq = permsEqual(perm1, perm2, size1)
 
+%diffGroup1 = size(setdiff(perm1(1:size1), perm2(1:size1)),2) + ...
+%           size(setdiff(perm2(1:size1), perm1(1:size1)),2);
+
+%diffGroup2 = size(setdiff(perm1(size1+1:end), perm2(size1+1:end)),2) + ...
+%           size(setdiff(perm2(size1+1:end), perm1(size1+1:end)),2);
+
+diffGroup1 = sum(abs(sort(perm1(1:size1)) - sort(perm2(1:size1))));
+diffGroup2 = sum(abs(sort(perm1(size1+1:end)) - sort(perm2(size1+1:end))));
+
+eq = (diffGroup1 + diffGroup2) == 0;
 end
