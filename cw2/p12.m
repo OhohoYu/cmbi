@@ -16,8 +16,6 @@ Y1 = MU1 + MUError + STD_DEV .* randn(SAMPLE_SIZE, 1);
 
 Y = [Y0;Y1];
 
-Ycentered = Y - mean(Y);
-
 % apply t-test, H should be 1
 [H,P,CI,STATS] = ttest(Y0, Y1);
 
@@ -29,9 +27,6 @@ X = [repmat([1 1], SAMPLE_SIZE,1); repmat([1 0], SAMPLE_SIZE,1)];
 S = [eye(SAMPLE_SIZE); eye(SAMPLE_SIZE)];
 
 X = [X, S];
-%C = ones(SAMPLE_SIZE + 2, 1);
-%C(1) = 0;
-%C(2) = 0;
 
 C = zeros(SAMPLE_SIZE + 2, 1);
 C(2) = 1;

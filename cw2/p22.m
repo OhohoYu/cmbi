@@ -25,13 +25,15 @@ data = fread(fid, 'float'); % 16-bit floating point
 wm_mask = reshape(data, [40 40 40]); % dimension 40x40x40
 
 % a
-%[tVals, maxT] = partA(CPAdata, PPAdata, wm_mask, SUBJECTS, RES);
+[tVals, maxT] = partA(CPAdata, PPAdata, wm_mask, SUBJECTS, RES);
 
 % b
 
 %[pVals, maxP] = partB(CPAdata, PPAdata, wm_mask, SUBJECTS, RES);
 
 [pVals, pVal, tThresh] = partBv2(CPAdata, PPAdata, wm_mask, SUBJECTS, RES);
+
+plot_graphs()
 
 end
 
@@ -169,5 +171,32 @@ maxTsSorted = sort(maxTs);
 tThresh = maxTsSorted(floor(NR_PERMS * 95/100));
 
 save('pValsPerm.mat', 'maxTs', 'pVal', 'tThresh', 'maxTOrig');
+
+end
+
+function plot_graphs()
+
+load('tVals.mat')
+maxT = max(tVals(:));
+load('pValsPerm.mat')
+hMaxTs = histogram(maxTs,100);
+
+xlabel('maximum T statistic')
+
+hold on 
+SP=maxT; %your point goes here 
+plot([SP SP],[0 700],'r--o')
+hold on 
+SP=tThresh; %your point goes here 
+plot([SP SP],[0 700],'g--*')
+
+legend('maximum t-statistic for different permutations','maximum t-statistic among all voxels', 't-statistic threshold for p-value=5%','Location','northoutside')
+
+set(gca,'FontSize',11);
+%set(gca, 'Position', [100 100 800 600]);
+
+%saveTightFigure(hMaxTs, 'report/figures/p22_b.eps');
+%saveas(hMaxTs, 'report/figures/p22_b.eps');
+
 
 end
