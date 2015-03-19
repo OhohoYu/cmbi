@@ -8,3 +8,7 @@
 *.backup
 cw2/Report-RE-LAMB.docx
 project/data
+project/code/c3CrossValidD1.mat
+project/code/c3CrossValidD2.mat
+project/code/c3CrossValidD3.mat
+

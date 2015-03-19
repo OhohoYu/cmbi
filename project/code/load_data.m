@@ -1,9 +1,9 @@
 function [cp_disp, surrogate_signal, surrogate_phase, surrogate_gradient] = load_data(COUCH_POS, CPGS)
 
 cp_disp = zeros(COUCH_POS,CPGS,88,68,41,1,3);
-surrogate_signal = zeros(6,40);
-surrogate_phase = zeros(6,40);
-surrogate_gradient = zeros(6,40);
+surrogate_signal = zeros(COUCH_POS,40);
+surrogate_phase = zeros(COUCH_POS,40);
+surrogate_gradient = zeros(COUCH_POS,40);
 
 % read the surrogate data and the control point displacements
 for c=1:COUCH_POS

@@ -18,17 +18,17 @@ CPGS = 40;
 % fit just the given voxels for each couch position, plots the data
 %fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, @c2getSOrder1);
 %fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, @c2getSOrder2);
-%fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, @c2getSOrder3);
+fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, @c2getSOrder3);
 
 
 % fits all the voxels for every couch position using 1st order model
-%c2fitAllVoxSlow(surrogate_signal, cp_disp, @c2getSOrder1);
+%c2fitAllVoxFast(surrogate_signal, cp_disp, @c2getSOrder1);
 
 % same but for second order
-%c2fitAllVoxSlow(surrogate_signal, cp_disp, @c2getSOrder2);
+%c2fitAllVoxFast(surrogate_signal, cp_disp, @c2getSOrder2);
 
 % same but for third order
-c2fitAllVoxSlow(surrogate_signal, cp_disp, @c2getSOrder3);
+c2fitAllVoxFast(surrogate_signal, cp_disp, @c2getSOrder3);
 
 end
 
