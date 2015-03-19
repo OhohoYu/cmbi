@@ -10,15 +10,19 @@ full_vol = load_nii('../data/4DCT_ref_lungs.nii');
   Dpred = Dpred.Dpred3;
   
   couch = 1; cpg = 10;
-  cp_filename = sprintf('../data/%dpos_data_couch/reg_couch_pos%d_cine%.2d_cpg.nii',couch,couch,cpg);
-  cp = load_nii(cp_filename);
+  reg_filename = sprintf('../data/%dpos_data_couch/reg_couch_pos%d_cine%.2d_cpg.nii',couch,couch,cpg);
+  reg_cp = load_nii(reg_filename);
   
-  trans_nii = cp;
+  trans_nii = reg_cp;
   trans_nii.img = squeeze(Dpred(couch, cpg,:,:,:,:,:));
   
+  [def_vol_nii, def_field_nii, dis_field_nii] = deformNiiWithCPG(trans_nii,full_vol,reg_cp,1);
   
-  figure(1)
-  dispNiiSliceColourOverlay(cp, trans_nii, 'z', 70);
+  dispNiiSlice(def_vol_nii, 'z', 70);
+  %figure(1)
+  %dispNiiSliceColourOverlay(cp, trans_nii, 'z', 70);
+  
+  
   
   clear Dpred
 %end
