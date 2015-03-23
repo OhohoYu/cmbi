@@ -1,4 +1,4 @@
-function [Dpred] = c2fitAllVoxFast(surrogate_signal, cp_disp, orderFunc)
+function [Dpred, params] = c2fitAllVoxFast(surrogate_signal, cp_disp, orderFunc)
 % vectorised version - fits all voxels in the 7D CPG arrays
 
 [COUCH_POS,CPGS,Xsize, Ysize, Zsize, ~ , Dsize] = size(cp_disp);

@@ -26,7 +26,7 @@ end
 points_trans = zeros(size(points_orig));
 for pt = 1:size(points_orig,1)
     %get deformation/displacement for this point
-    points_trans(n,:) = calcDefField(permute(cpg_nii.img,[1 2 3 5 4]),cxs,cys,czs,points_orig(pt,1),points_orig(pt,2),points_orig(pt,3));
+    points_trans(pt,:) = calcDefField(permute(cpg_nii.img,[1 2 3 5 4]),cxs,cys,czs,points_orig(pt,1),points_orig(pt,2),points_orig(pt,3));
 end
 
 %if cpg contains displacements need to add original point coords
