@@ -12,7 +12,6 @@ error_mean = zeros(MODELS, COUCH, CPG_INCOMPL);
 error_std_dev = zeros(MODELS, COUCH, CPG_INCOMPL);
 
 for m=1:3
-  m = 3;
   dpred_var_name = sprintf('Dpred%d',m );
   data_file_name = sprintf('c3CrossValidD%d.mat', m);
   Dpred = load(data_file_name);

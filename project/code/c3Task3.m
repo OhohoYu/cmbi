@@ -8,8 +8,9 @@ Dpred = load('c3CrossValidD3.mat');
 clear Dpred
 MODELS = 3;
 CPG_INCOMPL = 10; % only 10 out of 40 CT scans are provided
-error_mean = zeros(MODELS, COUCH, CPG_INCOMPL);
-error_std_dev = zeros(MODELS, COUCH, CPG_INCOMPL);
+land_error = zeros(MODELS, COUCH, CPG_INCOMPL);
+
+land_error_orig_reg = zeros(COUCH, CPG_INCOMPL);
 
 for m=1:3
   m = 3;
@@ -20,28 +21,13 @@ for m=1:3
 
   for couch=1:COUCH
     couch
+    landmark_file = sprintf('../data/Anatomical_landmarks/landmarks_couch_pos%d.mat', couch);
+    landmarks = load(landmark_file);
+    
     for cpg=1:CPG_INCOMPL
       
-
-      reg_filename = sprintf('../data/%dpos_data_couch/reg_couch_pos%d_cine%.2d_cpg.nii',couch,couch,cpg-1);
-      reg_cp = load_nii(reg_filename);
-
-      trans_nii = reg_cp;
-      trans_nii.img = reshape(Dpred(couch, cpg,:,:,:,:,:), [ X, Y, Z, T, D]);
-
-      [~, def_field_trans, ~] = deformNiiWithCPG(trans_nii,full_vol,full_vol);
-      [~, def_field_reg, ~] = deformNiiWithCPG(reg_cp,full_vol,full_vol);
-
-      cine_ct_filename = sprintf('../data/%dpos_data_couch/ct_couch_pos%d_cine%.2d.nii',couch,couch,cpg-1);
-      cine_ct = load_nii(cine_ct_filename);
-      cine_ct = cine_ct.img ~= -1;
-
-      diff = sqrt(sum((def_field_trans.img - def_field_reg.img).^2 ,5));
-
-      diff = diff .* cine_ct; % filter all the voxels outside the lungs
-
-      error_mean(m,couch, cpg) = mean(diff(:));
-      error_std_dev(m,couch, cpg) = std(diff(:));
+      trans_landmark = transPointsWithCPG(Dpred(couch, cpg,:,:,:,:,:), landmarks(cpg,:))
+      land_error(m,couch, cpg) = sqrt(sum((trans_landmark - ref_landmarks).^2));
     end
   end
 
