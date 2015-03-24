@@ -11,32 +11,40 @@ limits=[66,76;
 COUCH_POS = 5;
 VOLUMES = 10;
 
+axis_limits = [45, 355, 45, 275];
+% h1 = figure(1);
+% axis(axis_limits)
+% h2 = figure(2);
+% axis(axis_limits)
+
 for c=1:COUCH_POS
-    for v=0:VOLUMES-1
-        for slice_nr=limits(c,1):limits(c,2)
-            [c,v,slice_nr]
-            ct_filename = sprintf('../data/%dpos_data_couch/ct_couch_pos%d_cine0%d.nii',c,c,v);
-            ct = load_nii(ct_filename);
-            
-            reg1_filename = sprintf('../data/%dpos_data_couch/reg1_couch_pos%d_cine0%d_image.nii',c,c,v);
-            reg1 = load_nii(reg1_filename);
-            
-            reg2_filename = sprintf('../data/%dpos_data_couch/reg2_couch_pos%d_cine0%d_image.nii',c,c,v);    
-            reg2 = load_nii(reg2_filename);
-            
-            figure(1)
-            dispNiiSliceColourOverlay(ct, reg1, 'z', slice_nr);
-            figure(2)
-            dispNiiSliceColourOverlay(ct, reg2, 'z', slice_nr);
-            
-%             figure(1)
-%             h1 = dispNiiSlice(ct1_00, 'z', slice_nr);
-%             figure(2)
-%             h2 = dispNiiSlice(reg1, 'z', slice_nr);
-%             figure(3)
-%             h3 = dispNiiSlice(reg2, 'z', slice_nr);
-        end
+  for v=0:VOLUMES-1
+    for slice_nr=limits(c,1):limits(c,2)
+      [c,v,slice_nr]
+      ct_filename = sprintf('../data/%dpos_data_couch/ct_couch_pos%d_cine0%d.nii',c,c,v);
+      ct = load_nii(ct_filename);
+
+      reg1_filename = sprintf('../data/%dpos_data_couch/reg1_couch_pos%d_cine0%d_image.nii',c,c,v);
+      reg1 = load_nii(reg1_filename);
+
+      reg2_filename = sprintf('../data/%dpos_data_couch/reg2_couch_pos%d_cine0%d_image.nii',c,c,v);    
+      reg2 = load_nii(reg2_filename);
+
+      h1 = figure(1);
+      dispNiiSliceColourOverlay(ct, reg1, 'z', slice_nr);
+      figname1 = sprintf('figures/reg1/reg%d_%d_%d.png', c, v, slice_nr);
+      axis(axis_limits);
+      saveas(h1, figname1, 'png');
+
+
+      h2 = figure(2);
+      dispNiiSliceColourOverlay(ct, reg2, 'z', slice_nr);
+      figname2 = sprintf('figures/reg2/reg%d_%d_%d.png', c, v, slice_nr);
+      axis(axis_limits);
+      hgsave(h2, figname2);
+
     end
+  end
 
 end
 
