@@ -41,7 +41,7 @@ for c=1:COUCH_POS
       dispNiiSliceColourOverlay(ct, reg2, 'z', slice_nr);
       figname2 = sprintf('figures/reg2/reg%d_%d_%d.png', c, v, slice_nr);
       axis(axis_limits);
-      hgsave(h2, figname2);
+      saveas(h2, figname2, 'png');
 
     end
   end
