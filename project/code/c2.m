@@ -16,9 +16,9 @@ CPGS = 40;
 % fit the linear model for one voxel
 
 % fit just the given voxels for each couch position, plots the data
-%fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, @c2getSOrder1);
+fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, @c2getSOrder1);
 %fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, @c2getSOrder2);
-fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, @c2getSOrder3);
+%fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, @c2getSOrder3);
 
 
 % fits all the voxels for every couch position using 1st order model
