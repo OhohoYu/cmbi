@@ -23,14 +23,14 @@ couch_indices = [30,40,33,1,3;
                  30,45,13,1,3];
 
 % two_sigma_lin(point, param_nr, min-max)
-two_sigma_lin = zeros(POINTS, 2, 2);               
-conf_95_lin = zeros(POINTS, 2, 2);
+two_sigma_model1 = zeros(POINTS, 2, 2);               
+conf_95_model1 = zeros(POINTS, 2, 2);
 
-two_sigma_2poly = zeros(POINTS, 3, 2);               
-conf_95_2poly = zeros(POINTS, 3, 2);
+two_sigma_model2 = zeros(POINTS, 3, 2);               
+conf_95_model2 = zeros(POINTS, 3, 2);
 
-two_sigma_3poly = zeros(POINTS, 4, 2);               
-conf_95_3poly = zeros(POINTS, 4, 2);
+two_sigma_model3 = zeros(POINTS, 4, 2);               
+conf_95_model3 = zeros(POINTS, 4, 2);
 
 doPlotFig = 0; % set to 1 if you want to plot figure with samples and uncertainty
 
@@ -42,8 +42,8 @@ for c=1:POINTS
   parameter_sample = MCMC(specific_cp_disp, surrogate_signal(c,:), functions{1});
   %plot(parameter_sample(:,1))
   plotLines(parameter_sample, specific_cp_disp, surrogate_signal(c,:), functions{1});
-  [h, two_sigma_lin(c,1,:), conf_95_lin(c,1,:)] = c5calcUncertainty(parameter_sample(:,1), doPlotFig);
-  [h, two_sigma_lin(c,2,:), conf_95_lin(c,2,:)] = c5calcUncertainty(parameter_sample(:,2), doPlotFig);
+  [h, two_sigma_model1(c,1,:), conf_95_model1(c,1,:)] = c5calcUncertainty(parameter_sample(:,1), doPlotFig);
+  [h, two_sigma_model1(c,2,:), conf_95_model1(c,2,:)] = c5calcUncertainty(parameter_sample(:,2), doPlotFig);
 end
 
 %% 2nd order polynomial model
@@ -51,10 +51,10 @@ for c=1:POINTS
   specific_cp_disp = cp_disp(c,:,couch_indices(c,1),couch_indices(c,2),couch_indices(c,3),couch_indices(c,4),couch_indices(c,5));
   parameter_sample = MCMC(specific_cp_disp, surrogate_signal(c,:), functions{2});
   %plot(parameter_sample(:,1))
-  plotLines(parameter_sample, specific_cp_disp, surrogate_signal(c,:), functions{2});
-  [h, two_sigma_2poly(c,1,:), conf_95_2poly(c,1,:)] = c5calcUncertainty(parameter_sample(:,1), doPlotFig);
-  [h, two_sigma_2poly(c,2,:), conf_95_2poly(c,2,:)] = c5calcUncertainty(parameter_sample(:,2), doPlotFig);
-  [h, two_sigma_2poly(c,3,:), conf_95_2poly(c,3,:)] = c5calcUncertainty(parameter_sample(:,3), doPlotFig);
+  %plotLines(parameter_sample, specific_cp_disp, surrogate_signal(c,:), functions{2});
+  [h, two_sigma_model2(c,1,:), conf_95_model2(c,1,:)] = c5calcUncertainty(parameter_sample(:,1), doPlotFig);
+  [h, two_sigma_model2(c,2,:), conf_95_model2(c,2,:)] = c5calcUncertainty(parameter_sample(:,2), doPlotFig);
+  [h, two_sigma_model2(c,3,:), conf_95_model2(c,3,:)] = c5calcUncertainty(parameter_sample(:,3), doPlotFig);
 end
 
 %% 3rd order polynomial model
@@ -62,14 +62,14 @@ for c=1:POINTS
   specific_cp_disp = cp_disp(c,:,couch_indices(c,1),couch_indices(c,2),couch_indices(c,3),couch_indices(c,4),couch_indices(c,5));
   parameter_sample = MCMC(specific_cp_disp, surrogate_signal(c,:), functions{3});
   %plot(parameter_sample(:,1))
-  plotLines(parameter_sample, specific_cp_disp, surrogate_signal(c,:), functions{3});
-  [h, two_sigma_3poly(c,1,:), conf_95_3poly(c,1,:)] = c5calcUncertainty(parameter_sample(:,1), doPlotFig);
-  [h, two_sigma_3poly(c,2,:), conf_95_3poly(c,2,:)] = c5calcUncertainty(parameter_sample(:,2), doPlotFig);
-  [h, two_sigma_3poly(c,3,:), conf_95_3poly(c,3,:)] = c5calcUncertainty(parameter_sample(:,3), doPlotFig);
-  [h, two_sigma_3poly(c,4,:), conf_95_3poly(c,4,:)] = c5calcUncertainty(parameter_sample(:,4), doPlotFig);
+  %plotLines(parameter_sample, specific_cp_disp, surrogate_signal(c,:), functions{3});
+  [h, two_sigma_model3(c,1,:), conf_95_model3(c,1,:)] = c5calcUncertainty(parameter_sample(:,1), doPlotFig);
+  [h, two_sigma_model3(c,2,:), conf_95_model3(c,2,:)] = c5calcUncertainty(parameter_sample(:,2), doPlotFig);
+  [h, two_sigma_model3(c,3,:), conf_95_model3(c,3,:)] = c5calcUncertainty(parameter_sample(:,3), doPlotFig);
+  [h, two_sigma_model3(c,4,:), conf_95_model3(c,4,:)] = c5calcUncertainty(parameter_sample(:,4), doPlotFig);
 end
 
-save('MCMC.mat', 'two_sigma_lin', 'two_sigma_2poly', 'two_sigma_3poly', 'conf_95_lin', 'conf_95_2poly', 'conf_95_3poly');
+save('MCMC.mat', 'two_sigma_model1', 'two_sigma_model2', 'two_sigma_model3', 'conf_95_model1', 'conf_95_model2', 'conf_95_model3');
 
 end
 
