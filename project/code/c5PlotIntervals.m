@@ -47,6 +47,9 @@ wild_conf95_model3 = squeeze(wildBoot.Bpol3Res(:,5:6,c));
 boot_types={'mcmc', 'par', 'res', 'wild'};
 colours = ['b', 'm', 'k', 'r'];
 
+load('c2params_couch1.mat');
+
+params = {params1, params2, params3};
 %% model 1
 for m=1:MODELS
   nr_params = NR_PARAMS(m);
@@ -69,6 +72,14 @@ for m=1:MODELS
         hold on
       end
       
+      % strike a dotted vertical line where the original fitted parameter
+      % was
+      params_model = params{m};
+      plot(params_model(p) * ones(2,1), [0 alt], '--k');
+      
+      xlabel_name = sprintf('parameter %d', p);
+      xlabel(xlabel_name);
+      set(gca,'YTickLabel',[]);
       ylim ([0 alt]);
       h_legend = legend('MCMC 2sigma','MCMC 95% conf', 'Parametric Bootstrap 2sigma', 'Parametric Bootstrap 95% conf',...
         'Residual Bootstrap 2sigma', 'Residual Bootstrap 95% conf',...
