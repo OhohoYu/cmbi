@@ -21,9 +21,9 @@ CPGS = 40;
 %params3 = fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, @c2getSOrder3);
 
 
-%params7 = fit1VoxAdvBspl(surrogate_signal, surrogate_phase, cp_disp,CPGS,COUCH_POS, @advGetSBspline);
+params7 = fit1VoxAdvBspl(surrogate_signal, surrogate_phase, cp_disp,CPGS,COUCH_POS, @advGetSBspline);
 %params8 = fit1VoxAdv2D(surrogate_signal, surrogate_gradient, cp_disp,CPGS,COUCH_POS, @advGetS2Dlinear);
-params9 = fit1VoxAdv2D(surrogate_signal, surrogate_gradient, cp_disp,CPGS,COUCH_POS, @advGetS2Dpoly2);
+%params9 = fit1VoxAdv2D(surrogate_signal, surrogate_gradient, cp_disp,CPGS,COUCH_POS, @advGetS2Dpoly2);
 
 
 

@@ -44,9 +44,9 @@ clear Dpred7
 %save('c3CrossValidD8.mat', 'Dpred8');
 %clear Dpred8
 
-%Dpred9 = c3CrossValid2D(surrogate_signal, surrogate_gradient, cp_disp, @advGetS2Dpoly2);
-%save('c3CrossValidD9.mat', 'Dpred9');
-%clear Dpred9
+Dpred9 = c3CrossValid2D(surrogate_signal, surrogate_gradient, cp_disp, @advGetS2Dpoly2);
+save('c3CrossValidD9.mat', 'Dpred9');
+clear Dpred9
 
 
 end
