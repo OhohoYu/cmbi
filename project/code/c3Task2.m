@@ -6,24 +6,28 @@ full_vol = load_nii('../data/4DCT_ref_lungs.nii');
 Dpred = load('c3CrossValidD3.mat');
 [COUCH, ~, X, Y, Z, T, D] = size(Dpred.Dpred3);
 clear Dpred
-MODELS = 3;
+MODELS = 9;
 CPG_INCOMPL = 10; % only 10 out of 40 CT scans are provided
 error_mean = zeros(MODELS, COUCH, CPG_INCOMPL);
 error_std_dev = zeros(MODELS, COUCH, CPG_INCOMPL);
 SSD = zeros(MODELS, COUCH, CPG_INCOMPL);
 nr_data_points = zeros(MODELS, COUCH, CPG_INCOMPL);
 
-for m=1:3
+
+xtest = zeros(MODELS, 10,10);
+
+for m=1:MODELS
   dpred_var_name = sprintf('Dpred%d',m );
   data_file_name = sprintf('c3CrossValidD%d.mat', m);
   Dpred = load(data_file_name);
   Dpred = Dpred.(dpred_var_name);
 
+  xtest(m, :, :) = squeeze(Dpred(1,1,1,1:10,1:10,1,1));
+  
   for couch=1:COUCH
     couch
     for cpg=1:CPG_INCOMPL
       
-
       reg_filename = sprintf('../data/%dpos_data_couch/reg_couch_pos%d_cine%.2d_cpg.nii',couch,couch,cpg-1);
       reg_cp = load_nii(reg_filename);
 
@@ -57,6 +61,6 @@ for m=1:3
   clear Dpred
 end
 
-save('def_field_error.mat', 'error_mean', 'error_std_dev', 'SSD', 'nr_data_points');
+save('def_field_error2.mat', 'error_mean', 'error_std_dev', 'SSD', 'nr_data_points');
 
 end

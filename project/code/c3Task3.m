@@ -34,7 +34,7 @@ for couch=1:COUCH
   end
 end
 
-for m=1:3
+for m=1:9
   dpred_var_name = sprintf('Dpred%d',m );
   data_file_name = sprintf('c3CrossValidD%d.mat', m);
   Dpred = load(data_file_name);
@@ -63,6 +63,6 @@ end
 
 
 
-save('landmark_errors.mat', 'land_error', 'land_error_orig_reg');
+save('landmark_errors2.mat', 'land_error', 'land_error_orig_reg');
 
 end
