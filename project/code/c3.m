@@ -37,7 +37,7 @@ CPGS = 40;
 % clear Dpred6
 
 Dpred7 = c3CrossValid(surrogate_phase, cp_disp, @advGetSBspline);
-% save('c3CrossValidD7.mat', 'Dpred7');
+save('c3CrossValidD7.mat', 'Dpred7');
 clear Dpred7
 
 %Dpred8 = c3CrossValid2D(surrogate_signal, surrogate_gradient, cp_disp, @advGetS2Dlinear);
