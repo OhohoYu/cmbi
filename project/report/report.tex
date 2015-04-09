@@ -36,6 +36,7 @@ urlcolor=black
 
 \titlespacing\subsection{0pt}{4pt plus 4pt minus 2pt}{4pt plus 2pt minus 2pt}
 
+\usepackage{multicol}
 
 \tikzstyle{state}=[circle,thick,draw=black, align=center, minimum size=2.1cm,
 inner sep=0]
@@ -110,105 +111,216 @@ Student Number: 14060166\\
 \subsection*{Task 1 - Visual assessment}
 
 \begin{figure}[H]
-        \centering
-        \begin{subfigure}[b]{0.1\textwidth}
-          Reg 1\\\\\\\\
-        \end{subfigure}%
-        \hspace*{-1.9em}
-        \begin{subfigure}[b]{0.3\textwidth}
-                \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg1/reg1_1_66.png}
-        \end{subfigure}%
+  \centering
+  \begin{subfigure}[b]{0.1\textwidth}
+    Reg 1\\\\\\\\
+  \end{subfigure}%
+  \hspace*{-1.9em}
+  \begin{subfigure}[b]{0.3\textwidth}
+	  \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg1/reg1_1_66.png}
+  \end{subfigure}%
 %         ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
-                \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg1/reg2_5_60.png}
-        \end{subfigure}
+    %(or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.3\textwidth}
+	  \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg1/reg2_5_60.png}
+  \end{subfigure}
 %         ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
-                \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg1/reg3_2_49.png}
-        \end{subfigure}
-        
+    %(or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.3\textwidth}
+	  \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg1/reg3_2_49.png}
+  \end{subfigure}
+  
 %         ~
 
-	\begin{subfigure}[b]{0.1\textwidth}
-          Reg 2\\\\\\\\\\
-        \end{subfigure}%
-        \hspace*{-1.9em}
-	\begin{subfigure}[b]{0.3\textwidth}
-                \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg2/reg1_1_66.png}
-                \caption{Couch 1, volume 1, slice 66}
-                \label{fig:c11}
-        \end{subfigure}%
+  \begin{subfigure}[b]{0.1\textwidth}
+    Reg 2\\\\\\\\\\
+  \end{subfigure}%
+  \hspace*{-1.9em}
+  \begin{subfigure}[b]{0.3\textwidth}
+	  \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg2/reg1_1_66.png}
+	  \caption{Couch 1, volume 1, slice 66}
+	  \label{fig:c11}
+  \end{subfigure}%
 %         ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
 %           %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
-                \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg2/reg2_5_60.png}
-                \caption{Couch 2, volume 5, slice 60}
-                \label{fig:c12}
-        \end{subfigure}
+  \begin{subfigure}[b]{0.3\textwidth}
+	  \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg2/reg2_5_60.png}
+	  \caption{Couch 2, volume 5, slice 60}
+	  \label{fig:c12}
+  \end{subfigure}
 %         ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
-                \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg2/reg3_2_49.png}
-                \caption{Couch 3, volume 2, slice 49}
-                \label{fig:c13}
-        \end{subfigure}
-        
-        ~
-        \vfill
-        
-	\begin{subfigure}[b]{0.1\textwidth}
-          Reg 1\\\\\\\\
-        \end{subfigure}%
-        \hspace*{-1.9em}
-	\begin{subfigure}[b]{0.3\textwidth}
-                \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg1/reg4_8_37.png}
-        \end{subfigure}%
+    %(or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.3\textwidth}
+	  \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg2/reg3_2_49.png}
+	  \caption{Couch 3, volume 2, slice 49}
+	  \label{fig:c13}
+  \end{subfigure}
+  
+  ~
+  \vfill
+  
+  \begin{subfigure}[b]{0.1\textwidth}
+    Reg 1\\\\\\\\
+  \end{subfigure}%
+  \hspace*{-1.9em}
+  \begin{subfigure}[b]{0.3\textwidth}
+	  \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg1/reg4_8_37.png}
+  \end{subfigure}%
 %         ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
-		\includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg1/reg5_4_25.png}
-        \end{subfigure}
+    %(or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.3\textwidth}
+	  \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg1/reg5_4_25.png}
+  \end{subfigure}
 %         ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
-                \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg1/reg1_6_76.png}
-        \end{subfigure}
-        
+    %(or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.3\textwidth}
+	  \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg1/reg1_6_76.png}
+  \end{subfigure}
+  
 %         ~
 
-	\begin{subfigure}[b]{0.1\textwidth}
-          Reg 2\\\\\\\\\\
-        \end{subfigure}%
-        \hspace*{-1.9em}
-	\begin{subfigure}[b]{0.3\textwidth}
-                \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg2/reg4_8_37.png}
-                \caption{Couch 4, volume 8, slice 37}
-                \label{fig:c21}
-        \end{subfigure}%
+  \begin{subfigure}[b]{0.1\textwidth}
+    Reg 2\\\\\\\\\\
+  \end{subfigure}%
+  \hspace*{-1.9em}
+  \begin{subfigure}[b]{0.3\textwidth}
+	  \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg2/reg4_8_37.png}
+	  \caption{Couch 4, volume 8, slice 37}
+	  \label{fig:c21}
+  \end{subfigure}%
 %         ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
-                \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg2/reg5_4_25.png}
-                \caption{Couch 5, volume 4, slice 25}
-                \label{fig:c22}
-        \end{subfigure}
+    %(or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.3\textwidth}
+	  \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg2/reg5_4_25.png}
+	  \caption{Couch 5, volume 4, slice 25}
+	  \label{fig:c22}
+  \end{subfigure}
 %         ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
-          %(or a blank line to force the subfigure onto a new line)
-        \begin{subfigure}[b]{0.3\textwidth}
-                \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg2/reg1_6_76.png}
-                \caption{Couch 1, volume 6, slice 76}
-                \label{fig:c23}
-        \end{subfigure}
-        \caption{Registration results at several different slices and volumes for each couch position. For each subfigure, registration 1 and 2 are shown in the upper and lower figures respectively.}
-        \label{fig:c1vis}
+    %(or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.3\textwidth}
+	  \includegraphics[width=\textwidth, trim=20 20 20 20]{figures/reg2/reg1_6_76.png}
+	  \caption{Couch 1, volume 6, slice 76}
+	  \label{fig:c23}
+  \end{subfigure}
+  \caption{Registration results at several different slices and volumes for each couch position. For each subfigure, registration 1 and 2 are shown in the upper and lower figures respectively.}
+  \label{fig:c1vis}
 \end{figure}
 
 
 Figure \ref{fig:c1vis} shows the registration results for a few representative slices and volumes over all couch positions. Both registrations perform equally well subfigures (\ref{fig:c11} - \ref{fig:c22}), but yielded a bad registration in subfigure \ref{fig:c23}. Similar bad registrations have been observed in the last slice of each volume. The images show us that there is a considerable ammount of respiratory motion across different slices which needs to be modelled. The shape of the lung is also dramatically different across different couch positions, reaching a concave shape at couch 5. Nevertheless, the segmentation and registration worked fine even for these slices.
 
-\subsection*{Task 2 & 3 - Fitting the models}
+\subsection*{Task 2 \& 3 - Fitting the models}
+
+\begin{figure}[H]
+  \centering
+  \hspace*{-2em}
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth]{figures/task2/fit_round1_couch1.eps}
+  \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+  %(or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth]{figures/task2/fit_round2_couch1.eps}
+  \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+  %     (or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth]{figures/task2/fit_round3_couch1.eps}
+  \end{subfigure}
+  (a) Fit for couch position 1, voxel (30,40,33,1,3)
+  \vspace*{1em}
+  
+  \hspace*{-2em}
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 110,clip=true]{figures/task2/fit_round1_couch2.eps}
+  \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+%(or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 110,clip=true]{figures/task2/fit_round2_couch2.eps}
+  \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+%     (or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 110,clip=true]{figures/task2/fit_round3_couch2.eps}
+  \end{subfigure}
+  (b) Fit for couch position 2, voxel (30,40,28,1,3)
+  \vspace*{1em}
+  
+    \hspace*{-2em}
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 110,clip=true]{figures/task2/fit_round1_couch3.eps}
+  \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+%(or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 110,clip=true]{figures/task2/fit_round2_couch3.eps}
+  \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+%     (or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 110,clip=true]{figures/task2/fit_round3_couch3.eps}
+  \end{subfigure}
+  (c) Fit for couch position 3, voxel (30,40,23,1,3)
+  \vspace*{1em}
+  
+    \hspace*{-2em}
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 110,clip=true]{figures/task2/fit_round1_couch4.eps}
+  \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+%(or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 110,clip=true]{figures/task2/fit_round2_couch4.eps}
+  \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+%     (or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 110,clip=true]{figures/task2/fit_round3_couch4.eps}
+  \end{subfigure}
+   (d) Fit for couch position 4, voxel (30,45,18,1,3)
+  \vspace*{1em}
+
+  
+    \hspace*{-2em}
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 110,clip=true]{figures/task2/fit_round1_couch5.eps}
+  \end{subfigure}%
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+%(or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 110,clip=true]{figures/task2/fit_round2_couch5.eps}
+  \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+%     (or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 110,clip=true]{figures/task2/fit_round3_couch5.eps}
+  \end{subfigure}
+  (e) Fit for couch position 5, voxel (30,45,13,1,3)
+  \vspace*{1em}
+
+  
+  \caption{Fit of 9 different models across 5 voxels each from a different couch position. The first column shows the fit for the three basic models: linear, quadratic and cubic. The second column shows the same models with phase separation, while the last column shows the fit for the B-spline, 2D linear and 2D quadratic models.}
+  \label{fig:c2fit}
+  
+\end{figure}
+
+Figure \ref{fig:c2fit} shows the fit for 9 different models:
+\begin{multicols}{3}
+\begin{enumerate}
+ \item linear
+ \item quadratic
+ \item cubic
+ \item linear - phase separation
+ \item quadratic - phase separation
+ \item cubic - phase separation
+ \item B-spline
+ \item 2D linear
+ \item 2D quadratic
+\end{enumerate}
+\end{multicols}
+
+
 
 
 

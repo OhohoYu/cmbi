@@ -39,21 +39,35 @@ DpredOrd(:,:,9) = fit1VoxAdv2D(surrogate_signal, surrogate_gradient, cp_disp,CPG
 
 ROUNDS = 1:3;
 round_models = [1:3;4:6;7:9];
-TODO: add_legends
+legend_names = {{'linear', 'quadratic', 'cubic'}, {'linear - phase separation', ...
+  'quadratic - phase separation', 'cubic - phase separation'}, {'B-spline', ...
+  '2D linear', '2D quadratic'}};
 
-for r=ROUNDS
-  for c=1:COUCH_POS
+
+for c=1:COUCH_POS
+  for r=ROUNDS
     cp_disp_vox = cp_disp(c,:,couch_indices(c,1),couch_indices(c,2),couch_indices(c,3),couch_indices(c,4),couch_indices(c,5));
     sorted_surrog = sort(surrogate_signal(c,:));
-    h = figure
+    h = figure;
     scatter(surrogate_signal(c,:), cp_disp_vox,'filled');
     for m=round_models(r,:)
       hold on
       plot(sorted_surrog, DpredOrd(c,:,m),'LineWidth',1.5);
     end
     xlabel('Surrogate signal');
-    ylabel('Displacement along z direction');
-    legend('')
+    ylabel('z - displacement');
+    set(gca,'FontSize',19,'FontName','cmr');
+    %if c==1
+      %set(h_legend,'FontSize',15);
+      legend_names_round = legend_names{r};
+      h_legend = legend('displacement points', legend_names_round{1}, legend_names_round{2}, legend_names_round{3}, 'Location','northoutside');
+      set(h_legend,'Box','off');
+    %end
+
+    
+    set(h, 'Position', [0 0 600 500]);
+    axis tight
+    %axis([sorted_surrog(1) sorted_surrog(end) ]);
     figname = sprintf('../report/figures/task2/fit_round%d_couch%d.eps', r,c);
     hgexport(h, figname);
   end
