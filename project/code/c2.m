@@ -10,23 +10,55 @@ limits=[66,76;
     
 COUCH_POS = 5;
 CPGS = 40;
+MODELS = 9;
+
+couch_indices = [30,40,33,1,3;
+                 30,40,28,1,3;
+                 30,40,23,1,3;
+                 30,45,18,1,3;
+                 30,45,13,1,3];
+               
 
 [cp_disp, surrogate_signal, surrogate_phase, surrogate_gradient] = load_data(COUCH_POS, CPGS);
 
-% fit the linear model for one voxel
+
+DpredOrd = zeros(COUCH_POS, CPGS, MODELS);
 
 % fit just the given voxels for each couch position, plots the data
-%params1 = fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, @c2getSOrder1);
-%params2 = fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, @c2getSOrder2);
-%params3 = fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, @c2getSOrder3);
+DpredOrd(:,:,1) = fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, @c2getSOrder1);
+DpredOrd(:,:,2) = fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, @c2getSOrder2);
+DpredOrd(:,:,3) = fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, @c2getSOrder3);
 
+DpredOrd(:,:,4) = fit1VoxAdvSepPhase(surrogate_signal, surrogate_phase, cp_disp,CPGS,COUCH_POS, @c2getSOrder1);
+DpredOrd(:,:,5) = fit1VoxAdvSepPhase(surrogate_signal, surrogate_phase, cp_disp,CPGS,COUCH_POS, @c2getSOrder2);
+DpredOrd(:,:,6) = fit1VoxAdvSepPhase(surrogate_signal, surrogate_phase, cp_disp,CPGS,COUCH_POS, @c2getSOrder3);
 
-%params7 = fit1VoxAdvBspl(surrogate_signal, surrogate_phase, cp_disp,CPGS,COUCH_POS, @advGetSBspline);
-%params8 = fit1VoxAdv2D(surrogate_signal, surrogate_gradient, cp_disp,CPGS,COUCH_POS, @advGetS2Dlinear);
-params9 = fit1VoxAdv2D(surrogate_signal, surrogate_gradient, cp_disp,CPGS,COUCH_POS, @advGetS2Dpoly2);
+DpredOrd(:,:,7) = fit1VoxAdvBspl(surrogate_signal, surrogate_phase, cp_disp,CPGS,COUCH_POS, @advGetSBspline);
+DpredOrd(:,:,8) = fit1VoxAdv2D(surrogate_signal, surrogate_gradient, cp_disp,CPGS,COUCH_POS, @advGetS2Dlinear);
+DpredOrd(:,:,9) = fit1VoxAdv2D(surrogate_signal, surrogate_gradient, cp_disp,CPGS,COUCH_POS, @advGetS2Dpoly2);
 
+ROUNDS = 1:3;
+round_models = [1:3;4:6;7:9];
+TODO: add_legends
 
-
+for r=ROUNDS
+  for c=1:COUCH_POS
+    cp_disp_vox = cp_disp(c,:,couch_indices(c,1),couch_indices(c,2),couch_indices(c,3),couch_indices(c,4),couch_indices(c,5));
+    sorted_surrog = sort(surrogate_signal(c,:));
+    h = figure
+    scatter(surrogate_signal(c,:), cp_disp_vox,'filled');
+    for m=round_models(r,:)
+      hold on
+      plot(sorted_surrog, DpredOrd(c,:,m),'LineWidth',1.5);
+    end
+    xlabel('Surrogate signal');
+    ylabel('Displacement along z direction');
+    legend('')
+    figname = sprintf('../report/figures/task2/fit_round%d_couch%d.eps', r,c);
+    hgexport(h, figname);
+  end
+end
+  
 %save('c2params_couch1.mat', 'params1', 'params2', 'params3');
 
 % fits all the voxels for every couch position using 1st order model
@@ -40,32 +72,64 @@ params9 = fit1VoxAdv2D(surrogate_signal, surrogate_gradient, cp_disp,CPGS,COUCH_
 
 end
 
-function C = fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, orderFunc)
+function DpredOrd = fit1Vox(surrogate_signal, cp_disp,CPGS,COUCH_POS, orderFunc)
 couch_indices = [30,40,33,1,3;
                  30,40,28,1,3;
                  30,40,23,1,3;
                  30,45,18,1,3;
                  30,45,13,1,3];
              
-%params = zeros(COUCH_POS, )             
 cp_disp_vox = zeros(COUCH_POS, CPGS);
-for c=1:1%COUCH_POS
+DpredOrd = zeros(COUCH_POS, CPGS);
+for c=1:COUCH_POS
     cp_disp_vox(c,:) = cp_disp(c,:,couch_indices(c,1),couch_indices(c,2),couch_indices(c,3),couch_indices(c,4),couch_indices(c,5));
     
     S = orderFunc(surrogate_signal(c,:)');
     C = pinv(S' * S)*S'*cp_disp_vox(c,:)';
     Dpred = S*C;
     
-    [sorted_surrog, indices_sort_surrog] = sort(surrogate_signal(c,:));
-    figure
-    scatter(surrogate_signal(c,:), cp_disp_vox(c,:));
-    hold on
-    plot(sorted_surrog, Dpred(indices_sort_surrog));
+    [~, indices_sort_surrog] = sort(surrogate_signal(c,:));
+    DpredOrd(c,:) = Dpred(indices_sort_surrog);
 end
            
 end
 
-function C = fit1VoxAdv2D(surrogate_signal, surrogate_aux, cp_disp,CPGS,COUCH_POS, orderFunc)
+function DpredOrd = fit1VoxAdvSepPhase(surrogate_signal, surrogate_phase, cp_disp,CPGS,COUCH_POS, orderFunc)
+couch_indices = [30,40,33,1,3;
+                 30,40,28,1,3;
+                 30,40,23,1,3;
+                 30,45,18,1,3;
+                 30,45,13,1,3];
+             
+%params = zeros(COUCH_POS, )             
+DpredOrd = zeros(COUCH_POS, CPGS);
+Dpred = zeros(COUCH_POS, CPGS);
+for c=1:COUCH_POS
+    cp_disp_vox = cp_disp(c,:,couch_indices(c,1),couch_indices(c,2),couch_indices(c,3),couch_indices(c,4),couch_indices(c,5));
+    
+    S = orderFunc(surrogate_signal(c,:)');
+    
+    Phase = surrogate_phase(c,:);
+
+    S1 = S(Phase < 0.5,:);
+    S2 = S(Phase >= 0.5,:);
+
+    invSSS1 = pinv(S1' * S1)*S1';
+    invSSS2 = pinv(S2' * S2)*S2';
+
+    params1 = invSSS1 * cp_disp_vox(Phase < 0.5)';
+    params2 = invSSS2 * cp_disp_vox(Phase >= 0.5)';
+    
+    Dpred(c, Phase < 0.5) = S1 * params1;
+    Dpred(c, Phase >= 0.5) = S2 * params2;
+    
+    [~, indices_sort_surrog] = sort(surrogate_signal(c,:));
+    DpredOrd(c,:) = Dpred(c, indices_sort_surrog);
+end
+           
+end
+
+function DpredOrd = fit1VoxAdv2D(surrogate_signal, surrogate_aux, cp_disp,CPGS,COUCH_POS, orderFunc)
 couch_indices = [30,40,33,1,3;
                  30,40,28,1,3;
                  30,40,23,1,3;
@@ -74,7 +138,8 @@ couch_indices = [30,40,33,1,3;
              
 %params = zeros(COUCH_POS, )             
 cp_disp_vox = zeros(COUCH_POS, CPGS);
-for c=1:1%COUCH_POS
+DpredOrd = zeros(COUCH_POS, CPGS);
+for c=1:COUCH_POS
     cp_disp_vox(c,:) = cp_disp(c,:,couch_indices(c,1),couch_indices(c,2),couch_indices(c,3),couch_indices(c,4),couch_indices(c,5));
     
     S = orderFunc(surrogate_signal(c,:)', surrogate_aux(c,:)');
@@ -82,17 +147,18 @@ for c=1:1%COUCH_POS
     Dpred = S*C;
     
     C
-    [sorted_surrog, indices_sort_surrog] = sort(surrogate_signal(c,:));
-    figure
-    scatter(surrogate_signal(c,:), cp_disp_vox(c,:));
-    hold on
-    plot(sorted_surrog, Dpred(indices_sort_surrog));
+    [~, indices_sort_surrog] = sort(surrogate_signal(c,:));
+    DpredOrd(c,:) = Dpred(indices_sort_surrog);
+%     figure
+%     scatter(surrogate_signal(c,:), cp_disp_vox(c,:));
+%     hold on
+%     plot(sorted_surrog, Dpred(indices_sort_surrog));
 end
            
 end
 
 
-function C = fit1VoxAdvBspl(surrogate_signal, surrogate_aux, cp_disp,CPGS,COUCH_POS, orderFunc)
+function DpredOrd = fit1VoxAdvBspl(surrogate_signal, surrogate_aux, cp_disp,CPGS,COUCH_POS, orderFunc)
 couch_indices = [30,40,33,1,3;
                  30,40,28,1,3;
                  30,40,23,1,3;
@@ -101,18 +167,20 @@ couch_indices = [30,40,33,1,3;
              
 %params = zeros(COUCH_POS, )             
 cp_disp_vox = zeros(COUCH_POS, CPGS);
-for c=1:1%COUCH_POS
+DpredOrd = zeros(COUCH_POS, CPGS);
+for c=1:COUCH_POS
     cp_disp_vox(c,:) = cp_disp(c,:,couch_indices(c,1),couch_indices(c,2),couch_indices(c,3),couch_indices(c,4),couch_indices(c,5));
     
     S = orderFunc(surrogate_aux(c,:)');
     C = pinv(S' * S)*S'*cp_disp_vox(c,:)';
     Dpred = S*C;
-    
-    [sorted_surrog, indices_sort_surrog] = sort(surrogate_signal(c,:));
-    figure
-    scatter(surrogate_signal(c,:), cp_disp_vox(c,:));
-    hold on
-    plot(sorted_surrog, Dpred(indices_sort_surrog));
+    C
+    [~, indices_sort_surrog] = sort(surrogate_signal(c,:));
+    DpredOrd(c,:) = Dpred(indices_sort_surrog);
+%     figure
+%     scatter(surrogate_signal(c,:), cp_disp_vox(c,:));
+%     hold on
+%     plot(sorted_surrog, Dpred(indices_sort_surrog));
 end
            
 end

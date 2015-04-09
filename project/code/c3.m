@@ -26,27 +26,27 @@ CPGS = 40;
 % save('c3CrossValidD3.mat', 'Dpred3');
 % clear Dpred3
 
-% Dpred4 = c3CrossValidSepPhase(surrogate_signal, surrogate_phase, cp_disp, @c2getSOrder1);
-% save('c3CrossValidD4.mat', 'Dpred4');
-% clear Dpred4
-% Dpred5 = c3CrossValidSepPhase(surrogate_signal, surrogate_phase, cp_disp, @c2getSOrder2);
-% save('c3CrossValidD5.mat', 'Dpred5');
-% clear Dpred5
-% Dpred6 = c3CrossValidSepPhase(surrogate_signal, surrogate_phase, cp_disp, @c2getSOrder3);
-% save('c3CrossValidD6.mat', 'Dpred6');
-% clear Dpred6
+Dpred4 = c3CrossValidSepPhase(surrogate_signal, surrogate_phase, cp_disp, @c2getSOrder1);
+save('c3CrossValidD4.mat', 'Dpred4');
+clear Dpred4
+Dpred5 = c3CrossValidSepPhase(surrogate_signal, surrogate_phase, cp_disp, @c2getSOrder2);
+save('c3CrossValidD5.mat', 'Dpred5');
+clear Dpred5
+Dpred6 = c3CrossValidSepPhase(surrogate_signal, surrogate_phase, cp_disp, @c2getSOrder3);
+save('c3CrossValidD6.mat', 'Dpred6');
+clear Dpred6
 
 Dpred7 = c3CrossValid(surrogate_phase, cp_disp, @advGetSBspline);
 save('c3CrossValidD7.mat', 'Dpred7');
 clear Dpred7
+% 
+% Dpred8 = c3CrossValid2D(surrogate_signal, surrogate_gradient, cp_disp, @advGetS2Dlinear);
+% save('c3CrossValidD8.mat', 'Dpred8');
+% clear Dpred8
 
-%Dpred8 = c3CrossValid2D(surrogate_signal, surrogate_gradient, cp_disp, @advGetS2Dlinear);
-%save('c3CrossValidD8.mat', 'Dpred8');
-%clear Dpred8
-
-%Dpred9 = c3CrossValid2D(surrogate_signal, surrogate_gradient, cp_disp, @advGetS2Dpoly2);
-%save('c3CrossValidD9.mat', 'Dpred9');
-%clear Dpred9
+% Dpred9 = c3CrossValid2D(surrogate_signal, surrogate_gradient, cp_disp, @advGetS2Dpoly2);
+% save('c3CrossValidD9.mat', 'Dpred9');
+% clear Dpred9
 
 
 end
