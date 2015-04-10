@@ -108,7 +108,7 @@ Student Number: 14060166\\
 
 \rowcolors{2}{gray!25}{white}
 
-\subsection*{Task 1 - Visual assessment}
+\subsection*{Task 1 - Registration assessment}
 
 \begin{figure}[H]
   \centering
@@ -324,7 +324,136 @@ Figure \ref{fig:c2fit} shows the fit for 9 different models:
 
 
 
-\subsection*{Task 4 - Motion evaluation}
+\subsection*{Task 4 - Evaluation of the motion models}
+
+\subsubsection*{Visual Assessment}
+
+\begin{figure}[H]
+  \centering
+  \hspace*{-2em}
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m1.png}
+    \caption{Linear}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m1.png}
+    \caption{Quadratic}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m3.png}
+    \caption{Cubic}
+  \end{subfigure}
+  ~
+  \hspace*{-2em}
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m1.png}
+    \caption{Linear - Phase Separation}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m1.png}
+    \caption{Quadratic - Phase Separation}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m3.png}
+    \caption{Cubic - Phase Separation}
+  \end{subfigure}
+  ~
+  \hspace*{-2em}
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m1.png}
+    \caption{B-spline}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m1.png}
+    \caption{Linear 2D}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m3.png}
+    \caption{Quadratic 2D}
+  \end{subfigure}
+
+    \caption{Visual assessment of the 9 deformation models using leave-one out cross-validation on couch 1, volume 1, slice 66. }
+  \label{fig:c4visAss}
+  
+\end{figure}
+
+\subsubsection*{Deformation Field Error}
+
+\newcommand{\trimval}{140}
+\newcommand{\trimvalleg}{140}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=80 243 80 0,clip=true]{figures/task4/def_mean_error_couch1.eps}
+  \end{subfigure}%
+  \hspace{-3em}
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=80 203 80 55,clip=true]{figures/task4/def_mean_error_couch1.eps}
+  \end{subfigure}%
+  \hspace{2em}
+  \begin{subfigure}[b]{0.33\textwidth}
+    \includegraphics[width=\textwidth, trim=80 163 80 98,clip=true]{figures/task4/def_mean_error_couch1.eps}
+  \end{subfigure}%
+  
+  \hspace*{-2em}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 \trimval,clip=true]{figures/task4/def_mean_error_couch1.eps}
+    \caption{Couch 1 - Mean Def. Error}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 \trimval,clip=true]{figures/task4/def_stddev_error_couch1.eps}
+    \caption{Couch 1 - Std. Dev. of Def. Error}
+  \end{subfigure}
+  ~
+    \hspace*{-2em}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 \trimval,clip=true]{figures/task4/def_mean_error_couch2.eps}
+    \caption{Couch 2 - Mean Def. Error}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 \trimval,clip=true]{figures/task4/def_stddev_error_couch2.eps}
+    \caption{Couch 2 - Std. Dev. of Def. Error}
+  \end{subfigure}
+  ~
+    \hspace*{-2em}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 \trimval,clip=true]{figures/task4/def_mean_error_couch3.eps}
+    \caption{Couch 3 - Mean Def. Error}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 \trimval,clip=true]{figures/task4/def_stddev_error_couch3.eps}
+    \caption{Couch 3 - Std. Dev. of Def. Error}
+  \end{subfigure}
+  ~
+    \hspace*{-2em}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 \trimval,clip=true]{figures/task4/def_mean_error_couch4.eps}
+    \caption{Couch 4 - Mean Def. Error}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 \trimval,clip=true]{figures/task4/def_stddev_error_couch4.eps}
+    \caption{Couch 4 - Std. Dev. of Def. Error}
+  \end{subfigure}
+  ~
+    \hspace*{-2em}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 \trimval,clip=true]{figures/task4/def_mean_error_couch5.eps}
+    \caption{Couch 5 - Mean Def. Error}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 \trimval,clip=true]{figures/task4/def_stddev_error_couch5.eps}
+    \caption{Couch 5 - Std. Dev. of Def. Error}
+  \end{subfigure}
+  ~
+  \caption{Deformation Error meand and standard deviation for all 5 couch positions, 10 Cine CT volumes and 9 models.}
+  \label{fig:c4visAss}
+  
+\end{figure}
+
+\subsubsection*{Landmark Error}
+
+
 
 \subsection*{Task 5 - Parameter uncertainty}
 
