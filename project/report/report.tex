@@ -350,7 +350,7 @@ Figure \ref{fig:c1vis} shows the registration results for a few representative s
   
 \end{figure}
 
-Figure \ref{fig:c2fit} shows the fit for 9 different models:
+I fit the models for one voxel by solving the GLM $D = SC$ where $D$ is the displacement along one direction, $S$ is the matrix of surrogate signals and $C$ are the coefficients. I chose to solve the GLM using the pseudo-inverse of $S^\top S$, giving $C = pinv(S^\top S)S^\top D$. I used the MATLAB function \texttt{pinv} because it can better handle singularities than the function \texttt{inv}. Figure \ref{fig:c2fit} shows the fit for 9 different models:
 \begin{multicols}{3}
 \begin{enumerate}
  \item linear
@@ -365,13 +365,15 @@ Figure \ref{fig:c2fit} shows the fit for 9 different models:
 \end{enumerate}
 \end{multicols}
 
+These models have been fit for all CP displacements using a fast (vectorised) method where all the CP displacements are flattened into a huge matrix. The fit is plotted in figure \ref{fig:c2fit} only for the given voxels for all the couch positions (one voxel/row with three groups of models for each plot).
 
-
-
+The linear, quadratic and cubic models (plots in the column) give a reasonably good fit, especially for couch positions 4 and 5. The quadratic and cubic models don't differ much from the linear model, especially for voxels in couche positions 4 and 5. The phase separation models seem to fit outlier points better, but at the expense of extra parameters in the model. The B-spline and the 2D linear and quadratic models seem to fit the data best, but they run the risk of overfitting. The B-spline model seems to have a very oscilatory behaviour in the first few volumes, most evident in couch 2. In conclusion, all models fit these particular voxels well, and as we expected the more complex models give a better fit than the simpler models.
 
 \subsection*{Task 4 - Evaluation of the motion models}
 
 \subsubsection*{Visual Assessment}
+
+Figure \ref{fig:c4visAss} shows the visual assessment for all the 9 models for couch 1, volume 1, slice 66. There is considerably more motion compared to the registration assessment in task 1. The results are quite good, with essentially no differences between the estimated defirmation across the models. The motion of the outer shape of the lung has been almost perfectly estimated, with tiny errors at the top corner of the right lung. More deformation errors are found at the vasculature of the right lung. We therefore conclude that all 9 models perform equally well.
 
 \begin{figure}[H]
   \centering
@@ -391,29 +393,29 @@ Figure \ref{fig:c2fit} shows the fit for 9 different models:
   ~
   \hspace*{-2em}
   \begin{subfigure}[b]{0.33\textwidth}
-    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m1.png}
+    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m4.png}
     \caption{Linear - Phase Separation}
   \end{subfigure}%
   \begin{subfigure}[b]{0.33\textwidth}
-    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m1.png}
+    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m5.png}
     \caption{Quadratic - Phase Separation}
   \end{subfigure}
   \begin{subfigure}[b]{0.33\textwidth}
-    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m3.png}
+    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m6.png}
     \caption{Cubic - Phase Separation}
   \end{subfigure}
   ~
   \hspace*{-2em}
   \begin{subfigure}[b]{0.33\textwidth}
-    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m1.png}
+    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m7.png}
     \caption{B-spline}
   \end{subfigure}%
   \begin{subfigure}[b]{0.33\textwidth}
-    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m1.png}
+    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m8.png}
     \caption{Linear 2D}
   \end{subfigure}
   \begin{subfigure}[b]{0.33\textwidth}
-    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m3.png}
+    \includegraphics[width=\textwidth, trim=0 50 0 0,clip=true]{figures/task4/visAss_m9.png}
     \caption{Quadratic 2D}
   \end{subfigure}
 
@@ -423,6 +425,8 @@ Figure \ref{fig:c2fit} shows the fit for 9 different models:
 \end{figure}
 
 \subsubsection*{Deformation Field Error}
+
+Figure \ref{fig:c4defError} shows the deformation field error for the 10 Cine CT volumes across all 5 couch positions. The left column shows the mean error, while the right column shows the standard deviation. The ammount of motion varies slightly across the Cine CT scans but is usually less than 3mm. Similarly, standard deviation is usually below 1.2. The B-spline model seems to have larger error means and standard deviations especially in volumes from couch positions 4 and 5. The other models have similar errors across all couch positions.
 
 \newcommand{\trimval}{140}
 \newcommand{\trimvalleg}{140}
@@ -498,6 +502,8 @@ Figure \ref{fig:c2fit} shows the fit for 9 different models:
 
 \subsubsection*{Landmark Error}
 
+Figure \ref{fig:c4landError} shows the landmark errors for all the 9 models across the 5 couch positions, this time using all 40 Cine CT volumes. Moreover, the landmark error using the original registration is also plotted in black. The landmark error is usually between 1 and 4mm. All models perform equally good, with no clear winner from the plots. In particular, the cubic - phase separation model seems to have a spike in landmark error at couch position 2, volume 24, which might be due to overfitting. 
+
 \begin{figure}[H]
 %   \centering
   \begin{subfigure}[b]{0.5\textwidth}
@@ -530,6 +536,8 @@ Figure \ref{fig:c2fit} shows the fit for 9 different models:
   \label{fig:c4landError}
   
 \end{figure}
+
+\subsubsection*{Model Ranking}
 
 
 \subsection*{Task 5 - Parameter uncertainty}

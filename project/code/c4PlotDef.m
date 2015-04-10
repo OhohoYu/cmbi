@@ -32,7 +32,7 @@ end
 for c=1:COUCH
   h = figure;
   for m=MODELS
-    plot(squeeze(error_mean(m,c,:)), linestyle{m},'LineWidth',1.5);
+    plot(squeeze(error_std_dev(m,c,:)), linestyle{m},'LineWidth',1.5);
     hold on
   end
 
