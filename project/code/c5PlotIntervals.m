@@ -49,47 +49,57 @@ colours = ['b', 'm', 'k', 'r'];
 
 load('c2params_couch1.mat');
 
+plotLegend = 0;
+
 params = {params1, params2, params3};
 %% model 1
 for m=1:MODELS
   nr_params = NR_PARAMS(m);
   for p=1:nr_params
       h = figure
-      alt = 1;
+      alt = 8;
       for type=1:4
         sigma_name = sprintf('%s_2sigma_model%d', boot_types{type}, m);
         sigma = eval(sigma_name);
         spec = sprintf('%s-x', colours(type));
-        plot(sigma(p,:), [alt,alt],spec);
-        alt = alt + 1;
+        plot(sigma(p,:), [alt,alt],spec,'LineWidth',1.5,'MarkerSize',7);
+        alt = alt - 1;
         hold on
         
         conf_name = sprintf('%s_conf95_model%d', boot_types{type}, m);
         conf = eval(conf_name);
         spec = sprintf('%s-o', colours(type));
-        plot(conf(p,:), [alt,alt],spec);
-        alt = alt + 1;
+        plot(conf(p,:), [alt,alt],spec,'LineWidth',1.5,'MarkerSize',7);
+        alt = alt - 1;
         hold on
       end
       
       % strike a dotted vertical line where the original fitted parameter
       % was
       params_model = params{m};
-      plot(params_model(p) * ones(2,1), [0 alt], '--k');
+      plot(params_model(p) * ones(2,1), [0 9], '--k','LineWidth',1.5);
       
-      xlabel_name = sprintf('parameter %d', p);
+      xlabel_name = sprintf('', p);
       xlabel(xlabel_name);
       set(gca,'YTickLabel',[]);
-      ylim ([0 alt]);
-      h_legend = legend('MCMC 2sigma','MCMC 95% conf', 'Parametric Bootstrap 2sigma', 'Parametric Bootstrap 95% conf',...
-        'Residual Bootstrap 2sigma', 'Residual Bootstrap 95% conf',...
-        'Wild Bootstrap 2sigma', 'Wild Bootstrap 95% conf', 'Location','NorthOutside');
-      set(h_legend,'FontSize',14);
-      %set(gca, 'FontName', 'Arial')
-      set(gca, 'FontSize', 14)
+      ylim ([0 9]);
+      set(h, 'Position', [0 0 500 200]);
+      if (plotLegend == 1)
+        h_legend = legend('MCMC 2sigma','MCMC 95% conf', 'Parametric Bootstrap 2sigma', 'Parametric Bootstrap 95% conf',...
+          'Residual Bootstrap 2sigma', 'Residual Bootstrap 95% conf',...
+          'Wild Bootstrap 2sigma', 'Wild Bootstrap 95% conf', 'Location','NorthOutside');
+        set(h_legend,'FontSize',14);
+        set(h_legend, 'Box', 'off');
+      end
+      set(gca,'FontSize',11,'FontName','cmr')
+      axis tight
       %legend('2 sigma Par Bootstrap', '2sigma MCMC', 'conf95ParBoot', 'conf95MCMC', 'location', 'northoutside');
-      filename = sprintf('figures/params_uncertainty/c5uncert_model%d_param%d.png', m, p);
-      saveas(h, filename, 'png');
+      if (plotLegend == 1)
+        filename = sprintf('../report/figures/task5/uncert_legend.eps');
+      else
+        filename = sprintf('../report/figures/task5/uncert_model%d_param%d.eps', m, p);
+      end
+      hgexport(h, filename);
   end
 end
 

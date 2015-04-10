@@ -1,14 +1,16 @@
-function advPlotAll()
+function c4PlotDef()
 
 load('def_field_error2.mat');
 
 MODELS = 1:9;
 COUCH = 5;
 
+linestyle = {'-*','-*','-*','-+','-+','-+','-o','-o','-o',};
+
 for c=1:COUCH
   h = figure;
   for m=MODELS
-    plot(squeeze(error_mean(m,c,:)));%, error_std_dev(m,c,:));
+    plot(squeeze(error_mean(m,c,:)), linestyle{m},'LineWidth',1.5);
     hold on
   end
 
@@ -21,6 +23,8 @@ for c=1:COUCH
   xlabel('Cine CT volume');
   ylabel('Error mean');
   axis tight
+  ax = gca;
+  ax.XTick = 1:10;
   figname = sprintf('../report/figures/task4/def_mean_error_couch%d.eps', c);
   hgexport(h, figname);
 end
@@ -28,7 +32,7 @@ end
 for c=1:COUCH
   h = figure;
   for m=MODELS
-    plot(squeeze(error_mean(m,c,:)));%, error_std_dev(m,c,:));
+    plot(squeeze(error_mean(m,c,:)), linestyle{m},'LineWidth',1.5);
     hold on
   end
 
@@ -41,6 +45,8 @@ for c=1:COUCH
   xlabel('Cine CT volume');
   ylabel('Error std-dev');
   axis tight
+  ax = gca;
+  ax.XTick = 1:10;
   figname = sprintf('../report/figures/task4/def_stddev_error_couch%d.eps', c);
   hgexport(h, figname);
 end
