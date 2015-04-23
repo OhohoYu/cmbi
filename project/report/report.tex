@@ -9,9 +9,9 @@
 \usepackage{url}
 \hypersetup{
 colorlinks,
-citecolor=black,
+citecolor=blue,
 filecolor=black,
-linkcolor=black,
+linkcolor=blue,
 urlcolor=black
 }
 % Nice package for plotting graphs
@@ -34,7 +34,7 @@ urlcolor=black
 
 \usepackage{titlesec} % reduce spacing after subsections
 
-\titlespacing\subsection{0pt}{4pt plus 4pt minus 2pt}{4pt plus 2pt minus 2pt}
+% \titlespacing\subsection{0pt}{4pt plus 4pt minus 2pt}{4pt plus 2pt minus 2pt}
 
 \usepackage{multicol}
 
@@ -153,6 +153,18 @@ EPSRC Centre for Doctoral Training in Medical Imaging\\ University College Londo
 
 \rowcolors{2}{gray!25}{white}
 
+\subsection*{Introduction}
+% explains the problem and the background
+Radiation therapy uses ionizing radiation to control or kill cancerous cells. It works by dmaging the DNA of the cancerous tissue leading to cellular death. In order to spare normal tissue, radiation beams are aimed from various angles and intersect at the tumour, providing a much larger dose than in the surrounding tissue. However, it is sometimes not straightforward to localise the turmour, especially due to respiratory motion. Over time, several solutions have been proposed to deal with the problem or lung motion. The simplest approach is for the patient to hold her/his breath, but this limits the acquisition time to less than 30 seconds. Implanted markers could also be used to track the tumour \cite{shirato2000physical}, but this is an invasive procedure that carries a certain ammount of risk. 
+An alternative solution is to use correspondence models, which try to predict the motion of the lung based on input from a surrogate signal, which is easy to acquire during the RT intervention. The correspondence model is first trained using CT scans and the surrogate signal, and then during the RT intervention it can predict the lung position using only the surrogate signal. A lot of research has previously been done in respiratory motion modelling using different correspondence models (linear \cite{schweikard2000robotic}, polynomial \cite{mcclelland20054d}, B-spline \cite{buerger2012nonrigid}), imaging modalities (MR \cite{manke2003novel}, CT \cite{mcclelland20054d}) or types of surrogate signals(single signal \cite{schweikard2000robotic}, respiratory phase \cite{shechter2004respiratory}).
+
+\subsection*{Methods}
+% explains data pre-processing, models and the implementation
+asfafs
+
+\section*{Results}
+% explains the experiments and the results
+
 \subsection*{Task 1 - Registration assessment}
 
 \begin{figure}[H]
@@ -252,7 +264,7 @@ EPSRC Centre for Doctoral Training in Medical Imaging\\ University College Londo
 \end{figure}
 
 
-Figure \ref{fig:c1vis} shows the registration results for a few representative slices and volumes over all couch positions. Both registrations perform equally well subfigures (\ref{fig:c11} - \ref{fig:c22}), but yielded a bad registration in subfigure \ref{fig:c23}. Similar bad registrations have been observed in the last slice of each volume. The images show us that there is a considerable ammount of respiratory motion across different slices which needs to be modelled. The shape of the lung is also dramatically different across different couch positions, reaching a concave shape at couch 5. Nevertheless, the segmentation and registration worked fine even for these slices.
+Figure \ref{fig:c1vis} shows the registration results for a few representative slices and volumes over all couch positions. Both registrations perform equally well in subfigures (\ref{fig:c11} - \ref{fig:c22}), but yielded a bad registration for couch 1, volume 6, slice 76 in subfigure \ref{fig:c23}. Similar bad registrations have been observed in the last slice of each volume. The images show us that there is a considerable ammount of respiratory motion across different slices which needs to be modelled. The shape of the lung is also dramatically different across different couch positions, reaching a concave shape at couch 5. Nevertheless, the segmentation and registration worked fine even for these slices.
 
 \subsection*{Task 2 \& 3 - Fitting the models}
 
@@ -350,7 +362,7 @@ Figure \ref{fig:c1vis} shows the registration results for a few representative s
   
 \end{figure}
 
-I fit the models for one voxel by solving the GLM $D = SC$ where $D$ is the displacement along one direction, $S$ is the matrix of surrogate signals and $C$ are the coefficients. I chose to solve the GLM using the pseudo-inverse of $S^\top S$, giving $C = pinv(S^\top S)S^\top D$. I used the MATLAB function \texttt{pinv} because it can better handle singularities than the function \texttt{inv}. Figure \ref{fig:c2fit} shows the fit for 9 different models:
+I fit the models for one voxel by solving the following GLM: $D = SC$ where $D$ is the displacement along one direction, $S$ is the matrix of surrogate signals and $C$ are the coefficients. I chose to solve the GLM using the pseudo-inverse of $S^\top S$, giving $C = pinv(S^\top S)S^\top D$. I used the MATLAB function \texttt{pinv} because it can better handle singularities than the function \texttt{inv}. Figure \ref{fig:c2fit} shows the fit for 9 different models:
 \begin{multicols}{3}
 \begin{enumerate}
  \item linear
@@ -619,11 +631,11 @@ Figure \ref{fig:c4landError} shows the landmark errors for all the 9 models acro
 
 \subsection*{Advanced tasks}
 
+\section*{Discussion}
+% an interpretation and discussion of your results and the conclusion
 
-
-
-
-
+\bibliographystyle{unsrt}
+\bibliography{references}
 
 \end{document}
 
