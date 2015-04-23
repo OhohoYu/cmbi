@@ -156,11 +156,33 @@ EPSRC Centre for Doctoral Training in Medical Imaging\\ University College Londo
 \subsection*{Introduction}
 % explains the problem and the background
 Radiation therapy uses ionizing radiation to control or kill cancerous cells. It works by dmaging the DNA of the cancerous tissue leading to cellular death. In order to spare normal tissue, radiation beams are aimed from various angles and intersect at the tumour, providing a much larger dose than in the surrounding tissue. However, it is sometimes not straightforward to localise the turmour, especially due to respiratory motion. Over time, several solutions have been proposed to deal with the problem or lung motion. The simplest approach is for the patient to hold her/his breath, but this limits the acquisition time to less than 30 seconds. Implanted markers could also be used to track the tumour \cite{shirato2000physical}, but this is an invasive procedure that carries a certain ammount of risk. 
-An alternative solution is to use correspondence models, which try to predict the motion of the lung based on input from a surrogate signal, which is easy to acquire during the RT intervention. The correspondence model is first trained using CT scans and the surrogate signal, and then during the RT intervention it can predict the lung position using only the surrogate signal. A lot of research has previously been done in respiratory motion modelling using different correspondence models (linear \cite{schweikard2000robotic}, polynomial \cite{mcclelland20054d}, B-spline \cite{buerger2012nonrigid}), imaging modalities (MR \cite{manke2003novel}, CT \cite{mcclelland20054d}) or types of surrogate signals(single signal \cite{schweikard2000robotic}, respiratory phase \cite{shechter2004respiratory}).
+An alternative solution is to use correspondence models, which try to predict the motion of the lung based on input from a surrogate signal, which is easy to acquire during the RT intervention. The correspondence model is first trained using CT scans and the surrogate signal, and then during the RT intervention it can predict the lung position using only the surrogate signal. A lot of research has previously been done in respiratory motion modelling using different correspondence models (linear \cite{schweikard2000robotic}, polynomial \cite{mcclelland20054d}, B-spline \cite{buerger2012nonrigid}), imaging modalities (MR \cite{manke2003novel}, CT \cite{mcclelland20054d}) or types of surrogate signals(single signal \cite{schweikard2000robotic}, respiratory phase \cite{shechter2004respiratory}). The aim of the project is to evaluate how well polynomial and b-spline correspondence models can model the lung deformation. 
 
 \subsection*{Methods}
 % explains data pre-processing, models and the implementation
-asfafs
+
+\begin{figure}[H]
+  \centering
+ \includegraphics[width=0.8\textwidth]{figures/system_diagram.png}
+ \caption{Diagram describing the motion model system. The respiratory surrogate signal and the Cine CT scans are acquired simoulatenously, and then these are registered with the initial end-exhale volume. The deformation grids that result from the registration and the surrogate signals are then used to build the correspondence motion model.}
+\end{figure}
+
+The imaging data given to us contained 40 Cine CT volumes acquired over 20 seconds at 5 different couch positions. Moreover, the initial end-exhale volume as well as registrations between this initial volume and the Cine CT volumes were provided. The surrogate signal was computed using the Vision RT system, and measures the volume between the chest surface and the couch. We were also given the gradient and the respiratory phase. We used this data to evaluate 9 different algorithms:
+\begin{multicols}{3}
+\begin{enumerate}
+ \item linear
+ \item quadratic
+ \item cubic
+ \item linear - phase separation
+ \item quadratic - phase separation
+ \item cubic - phase separation
+ \item B-spline
+ \item 2D linear
+ \item 2D quadratic
+\end{enumerate}
+\end{multicols}
+
+I fit the models for one voxel by solving the following GLM: $D = SC$ where $D$ is the displacement along one direction, $S$ is the matrix of surrogate signals and $C$ are the coefficients. I chose to solve the GLM using the pseudo-inverse of $S^\top S$, giving $C = pinv(S^\top S)S^\top D$. I used the MATLAB function \texttt{pinv} because it can better handle singularities than the function \texttt{inv}. These 9 models have been fit for all CP displacements using a fast (vectorised) method where all the CP displacements are flattened into a huge matrix. 
 
 \section*{Results}
 % explains the experiments and the results
@@ -259,12 +281,12 @@ asfafs
 	  \caption{Couch 1, volume 6, slice 76}
 	  \label{fig:c23}
   \end{subfigure}
-  \caption{Registration results at several different slices and volumes for each couch position. For each subfigure, registration 1 and 2 are shown in the upper and lower figures respectively.}
+  \caption{Registration results at several different slices and volumes for each couch position. For each subfigure, registration 1 and 2 are shown in the upper and lower figures respectively. Registration worked fine in these examples apart from the slice in subfigure \ref{fig:c23}.}
   \label{fig:c1vis}
 \end{figure}
 
 
-Figure \ref{fig:c1vis} shows the registration results for a few representative slices and volumes over all couch positions. Both registrations perform equally well in subfigures (\ref{fig:c11} - \ref{fig:c22}), but yielded a bad registration for couch 1, volume 6, slice 76 in subfigure \ref{fig:c23}. Similar bad registrations have been observed in the last slice of each volume. The images show us that there is a considerable ammount of respiratory motion across different slices which needs to be modelled. The shape of the lung is also dramatically different across different couch positions, reaching a concave shape at couch 5. Nevertheless, the segmentation and registration worked fine even for these slices.
+Figure \ref{fig:c1vis} shows the registration results for a few representative slices and volumes over all couch positions. Both registrations perform equally well in subfigures (\ref{fig:c11} - \ref{fig:c22}), but yielded a bad registration for couch 1, volume 6, slice 76 in subfigure \ref{fig:c23}. Similar bad registrations have been observed in the last slice of each volume, suggesting that the registration does not always work. The images show us that there is a considerable ammount of respiratory motion across different couch position and slices which needs to be modelled. The shape of the lung is also dramatically different across different couch positions, reaching a concave shape at couch 5. Nevertheless, the segmentation and registration worked fine even for these nonstandard slices.
 
 \subsection*{Task 2 \& 3 - Fitting the models}
 
@@ -362,22 +384,10 @@ Figure \ref{fig:c1vis} shows the registration results for a few representative s
   
 \end{figure}
 
-I fit the models for one voxel by solving the following GLM: $D = SC$ where $D$ is the displacement along one direction, $S$ is the matrix of surrogate signals and $C$ are the coefficients. I chose to solve the GLM using the pseudo-inverse of $S^\top S$, giving $C = pinv(S^\top S)S^\top D$. I used the MATLAB function \texttt{pinv} because it can better handle singularities than the function \texttt{inv}. Figure \ref{fig:c2fit} shows the fit for 9 different models:
-\begin{multicols}{3}
-\begin{enumerate}
- \item linear
- \item quadratic
- \item cubic
- \item linear - phase separation
- \item quadratic - phase separation
- \item cubic - phase separation
- \item B-spline
- \item 2D linear
- \item 2D quadratic
-\end{enumerate}
-\end{multicols}
+Figure \ref{fig:c2fit} shows the fit for the 9 different models.
 
-These models have been fit for all CP displacements using a fast (vectorised) method where all the CP displacements are flattened into a huge matrix. The fit is plotted in figure \ref{fig:c2fit} only for the given voxels for all the couch positions (one voxel/row with three groups of models for each plot).
+
+The fit is plotted in figure \ref{fig:c2fit} only for the given voxels for all the couch positions (one voxel/row with three groups of models for each plot).
 
 The linear, quadratic and cubic models (plots in the column) give a reasonably good fit, especially for couch positions 4 and 5. The quadratic and cubic models don't differ much from the linear model, especially for voxels in couche positions 4 and 5. The phase separation models seem to fit outlier points better, but at the expense of extra parameters in the model. The B-spline and the 2D linear and quadratic models seem to fit the data best, but they run the risk of overfitting. The B-spline model seems to have a very oscilatory behaviour in the first few volumes, most evident in couch 2. In conclusion, all models fit these particular voxels well, and as we expected the more complex models give a better fit than the simpler models.
 
