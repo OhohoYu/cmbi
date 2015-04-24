@@ -13,16 +13,25 @@ MODEL_NR_PARAMS = [2,3,4,4,6,8,4,3,6];
 
 sigma = error_std_dev;
 
-for m=1:MODELS
-  for couch=1:COUCH
-    for cpg=1:CPG
-      aic(m, couch, cpg) = 2*MODEL_NR_PARAMS(m) + SSD(m,couch,cpg)/(sigma(m, couch, cpg)^2);
-      bic(m, couch, cpg) = log(nr_data_points(m, couch, cpg))*MODEL_NR_PARAMS(m) + SSD(m,couch,cpg)/(sigma(m, couch, cpg)^2);
-      
-    end
-  end
-end
+ssdNoise = SSD ./ (sigma.^2);
+sumSSD = sum(squeeze(sum(ssdNoise, 2)),2);
 
-meanAic = sum(squeeze(sum(aic, 2)),2);
+data_points = sum(squeeze(sum(nr_data_points, 2)),2);
+aic = 2*MODEL_NR_PARAMS' + sumSSD
+bic = log(data_points).*MODEL_NR_PARAMS' + sumSSD
+
+labels = {'linear', 'quadratic', 'cubic', 'linear - phase separation', ...
+  'quadratic - phase separation', 'cubic - phase separation', 'B-spline', ...
+  '2D linear', '2D quadratic'};
+
+[~, indices_sorted] = sort(aic);
+labels(indices_sorted)'
+
+[aic, bic]
+
+for i=1:MODELS
+  m = indices_sorted(i);
+  display(sprintf('%s & %.0f & %.0f\\\\', labels{m}, aic(m), bic(m)));
+end
 
 end
