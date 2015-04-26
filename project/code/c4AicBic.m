@@ -3,6 +3,7 @@ function c4AicBic()
 % linear is best, quadratic, then cubic
 
 load('def_field_error2.mat');
+%load('landmark_errors2.mat');
 
 [MODELS, COUCH, CPG] = size(SSD);
 
@@ -19,6 +20,8 @@ sumSSD = sum(squeeze(sum(ssdNoise, 2)),2);
 data_points = sum(squeeze(sum(nr_data_points, 2)),2);
 aic = 2*MODEL_NR_PARAMS' + sumSSD
 bic = log(data_points).*MODEL_NR_PARAMS' + sumSSD
+mean_def_error = mean(squeeze(mean(error_mean,2)),2);
+%mean_land_error = mean(squeeze(mean(land_error,2)),2);
 
 labels = {'linear', 'quadratic', 'cubic', 'linear - phase separation', ...
   'quadratic - phase separation', 'cubic - phase separation', 'B-spline', ...
@@ -31,7 +34,7 @@ labels(indices_sorted)'
 
 for i=1:MODELS
   m = indices_sorted(i);
-  display(sprintf('%s & %.0f & %.0f\\\\', labels{m}, aic(m), bic(m)));
+  display(sprintf('%s & %.0f & %.0f & %.3f\\\\', labels{m}, aic(m), bic(m), mean_def_error(m)));
 end
 
 end

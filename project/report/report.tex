@@ -562,28 +562,37 @@ Figure \ref{fig:c4landError} shows the landmark errors for all the 9 models acro
 Finally, in order to rank the 9 different correspondence models, AIC and BIC scores have been calculated:
 % \footnote{The AIC/BIC values have been scaled with 1e-08 but this doesn't affect the analysis, since they're relative values. Secondly, AIC and BIC values reported here might look identical, but this is because only the first 4 digits of precision are given.}
 \begin{center}
-\begin{tabular}{c | c | c}
-  Model & AIC & BIC\\
+\begin{tabular}{c | c | c | c}
+  Model & AIC & BIC & Mean Deformation Error (mm)\\
   \hline
-cubic & 90841746 & 90841805\\
-cubic - phase separation & 91489516 & 91489634\\
-quadratic & 92590097 & 92590141\\
-quadratic - phase separation & 93364438 & 93364527\\
-linear & 94080458 & 94080487\\
-linear - phase separation & 94325216 & 94325275\\
-2D quadratic & 96879272 & 96879360\\
-2D linear & 97780958 & 97781002\\
-B-spline & 118933267 & 118933326\\
+cubic & 90841746 & 90841805 & 1.161\\
+cubic - phase separation & 91489516 & 91489634 & 1.263\\
+quadratic & 92590097 & 92590141 & 1.169\\
+quadratic - phase separation & 93364438 & 93364527 & 1.207\\
+linear & 94080458 & 94080487 & 1.175\\
+linear - phase separation & 94325216 & 94325275 & 1.198\\
+2D quadratic & 96879272 & 96879360 & 1.240\\
+2D linear & 97780958 & 97781002 & 1.182\\
+B-spline & 118933267 & 118933326 & 1.706\\
 \end{tabular}
 \end{center}
 
-The model ranking shows that the cubic model has the lowest AIC/BIC score, followed by cubic-phase separation, quadratic and quadratic-phase separation. At the bottom end of the table, the B-spline, 2D linear and 2D quadratic models have the highest AIC/BIC scores. These results agree with the previous ones obtained using the deformation field error and landmark error.
+The model ranking (ordered by AIC score) shows that the cubic model has the lowest AIC/BIC score, followed by cubic-phase separation, quadratic and quadratic-phase separation. At the bottom end of the table, the B-spline, 2D linear and 2D quadratic models have the highest AIC/BIC scores. These results agree with the previous ones obtained using the deformation field error and landmark error. Mean deformation error for all models ranged from 1.16 mm (cubic model) to 1.70 mm(B-spline model).
 
 The advantage of using all these different methods of assessing the models is that it can increase our confidence in the results. Furthermore, each methods assesses the models from different angles, so one method of assessment could potentially show some interesting insights that the others cannot offer. The visual assessment offers a broad overview of the prediction accuracy and help identify in which are the areas of the lungs motion is not properly predicted. The assessment using the deformation field error and AIC/BIC scores is useful for finding out which models perform best and even rank them, while the landmark error assessment is unbiased as it uses external input from a clinician. The leave one out method was used in order to provide a more unbiased prediction of the deformation by not using the same data for both training and testing. As there were only 40 volumes available and in order to have as large a training sample as possible, 39 of the datapoints were used for training and 1 for testing. Nevertheless, some problems might arrise with the leave one out approach, such as having highly correlated samples, especially those that are very close in time.
 
 \subsection*{Task 5 - Parameter uncertainty}
 
-We estimated parameter uncertainty in the 3 basic models using MCMC, Parametric Bootstrap, Residual Bootstrap and Wild Bootstrap. 
+We estimated parameter uncertainty in the 3 basic models using 4 different methods. The reason why these were chosen is explained next to them:
+\begin{itemize}
+ \item \textbf{Parametric Bootstrap}: used because it assumes noise model is correct
+ \item \textbf{Residual Bootstrap}: uses residual values instead of random samples from a noise model
+ \item \textbf{Wild Bootstrap}: suitable for heteroskedastic data (i.e. having populations with different variances)
+ \item \textbf{MCMC}: used because it perturbs the parameters rather than the dataset 
+ \end{itemize}
+
+Results for the linear, quadratic and cubuc models are plotted in figures \ref{fig:c5uncertM1}, \ref{fig:c5uncertM2} and \ref{fig:c5uncertM3} respectively. For all plots, we notice that the fitted values were always in the center of the 95\% confidence intervals and 2-sigma ranges. For each model, the value of the intercept (last parameter in each plot) is always around 157.5-158 while the value of the linear coefficient (penultimate parameter in each plot) is around 2.5-4. For the quadratic and cubic models, we notice that the coefficients of the quadratic and cubic terms are much smaller (betwen -1 and 0), suggesting that there is not much extra fit that these higher-order models can give. The corresponding parameter distribution for the parametric bootstraps are plotted in appendix figures \ref{fig:c5distM1}, \ref{fig:c5distM2} and \ref{fig:c5distM3} respectively.
+
 
 \begin{figure}
    \centering
@@ -622,12 +631,12 @@ We estimated parameter uncertainty in the 3 basic models using MCMC, Parametric 
     \caption{Parameter 2}
   \end{subfigure}%
   \begin{subfigure}[b]{0.5\textwidth}
-    \includegraphics[width=\textwidth, trim=0 0 0 0,clip=true]{figures/task5/uncert_model2_param2.eps}
+    \includegraphics[width=\textwidth, trim=0 0 0 0,clip=true]{figures/task5/uncert_model2_param3.eps}
     \caption{Parameter 3}
   \end{subfigure}%
   
   \caption{Parameter uncertainty for the quadratic model.}
-  \label{fig:c5uncertM1}
+  \label{fig:c5uncertM2}
   
 \end{figure}
 
@@ -648,25 +657,87 @@ We estimated parameter uncertainty in the 3 basic models using MCMC, Parametric 
   
   \begin{subfigure}[b]{0.5\textwidth}
     \includegraphics[width=\textwidth, trim=0 0 0 0,clip=true]{figures/task5/uncert_model3_param3.eps}
-    \caption{Parameter 2}
+    \caption{Parameter 3}
   \end{subfigure}%
   \begin{subfigure}[b]{0.5\textwidth}
     \includegraphics[width=\textwidth, trim=0 0 0 0,clip=true]{figures/task5/uncert_model3_param4.eps}
-    \caption{Parameter 3}
+    \caption{Parameter 4}
   \end{subfigure}%
   
   \caption{Parameter uncertainty for the cubic model.}
-  \label{fig:c5uncertM1}
+  \label{fig:c5uncertM3}
   
 \end{figure}
 
-\subsection*{Advanced tasks}
-
 \section*{Discussion}
 % an interpretation and discussion of your results and the conclusion
+Our results show that correspondence models can be successfully used to predict lung motion, with a precision of approximatelly 2-3mm. It should be noted that part of the error also comes from the registration that didn't properly align the end-exhale Cine CT slice with the other slices. We also concluded that the cubic model is the most suitable, as it has the lowest AIC and BIC scores, followed by cubic with phase separation and quadratic. The 3 methods of evaluation (visual assessment, deformation field error and landmark error) yielded consistent results. Finally, we also calculated the ammount of uncertainty in the fitted parameters. 
 
 \bibliographystyle{unsrt}
 \bibliography{references}
+
+\chapter*{Appendix}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 0,clip=true]{figures/task5/parDistM1P1.png}
+    \caption{Parameter 1}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 0,clip=true]{figures/task5/parDistM1P2.png}
+    \caption{Parameter 2}
+  \end{subfigure}%
+  
+  \caption{Parametric bootstrap for the linear model - parameter distributions.}
+  \label{fig:c5distM1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 0,clip=true]{figures/task5/parDistM2P1.png}
+    \caption{Parameter 1}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 0,clip=true]{figures/task5/parDistM2P2.png}
+    \caption{Parameter 2}
+  \end{subfigure}%
+  
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 0,clip=true]{figures/task5/parDistM2P3.png}
+    \caption{Parameter 3}
+  \end{subfigure}%
+  
+  \caption{Parametric bootstrap for the quadratic model - parameter distributions.}
+  \label{fig:c5distM2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 0,clip=true]{figures/task5/parDistM3P1.png}
+    \caption{Parameter 1}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 0,clip=true]{figures/task5/parDistM3P2.png}
+    \caption{Parameter 2}
+  \end{subfigure}%
+  
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 0,clip=true]{figures/task5/parDistM3P3.png}
+    \caption{Parameter 3}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth, trim=0 0 0 0,clip=true]{figures/task5/parDistM3P4.png}
+    \caption{Parameter 4}
+  \end{subfigure}%
+  
+  \caption{Parametric bootstrap for the cubic model - parameter distributions.}
+  \label{fig:c5distM3}
+\end{figure}
+
+% TODO: add the other plots
+
 
 \end{document}
 
