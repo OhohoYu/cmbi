@@ -167,7 +167,7 @@ An alternative solution is to use correspondence models, which try to predict th
  \caption{Diagram describing the motion model system. The respiratory surrogate signal and the Cine CT scans are acquired simoulatenously, and then these are registered with the initial end-exhale volume. The deformation grids that result from the registration and the surrogate signals are then used to build the correspondence motion model.}
 \end{figure}
 
-The imaging data given to us contained 40 Cine CT volumes acquired over 20 seconds at 5 different couch positions. Moreover, the initial end-exhale volume as well as registrations between this initial volume and the Cine CT volumes were provided. The surrogate signal was computed using the Vision RT system, and measures the volume between the chest surface and the couch. We were also given the gradient and the respiratory phase. We used this data to evaluate 9 different algorithms:
+The imaging data given to us contained 40 Cine CT volumes acquired over 20 seconds at 5 different couch positions. Moreover, the initial end-exhale volume as well as registrations between this initial volume and the Cine CT volumes were provided. The surrogate signal was computed using the Vision RT system, and measures the volume between the chest surface and the couch. We were also given the gradient and the respiratory phase. We used this data to evaluate 9 different models:
 \begin{multicols}{3}
 \begin{enumerate}
  \item linear
@@ -387,7 +387,7 @@ Figure \ref{fig:c1vis} shows the registration results for a few representative s
 \end{figure}
 
 
-The fit of the 9 correspondence models is plotted in figure \ref{fig:c2fit} only for the given voxels for all the couch positions (one voxel per row). The linear, quadratic and cubic models (plots in the first column) give a reasonably good fit, especially for couch positions 4 and 5. The quadratic and cubic models don't differ much from the linear model, especially for voxels in couch positions 4 and 5. The phase separation models (middle column) seem to fit outlier points better, but at the expense of extra parameters in the model. The B-spline and the 2D linear and quadratic models seem to fit the data best, but they run the risk of overfitting. The B-spline model seems to have a very oscilatory behaviour in the first few volumes, most evident in couch 2. In conclusion, all models fit these particular voxels well, and as we expected the more complex models give a better fit than the simpler models due to the fact that they have more parameters. All these models have been fit to every voxel in every couch position and volume, and the next section presents their evaluation using visual assessment, deformation field error, landmark error and AIC/BIC scores.
+The fit of the 9 correspondence models is plotted in figure \ref{fig:c2fit} only for the given voxels for all the couch positions (one voxel per row). The linear, quadratic and cubic models (plots in the first column) give a reasonably good fit, especially for couch positions 4 and 5. The quadratic and cubic models don't differ much from the linear model, especially for voxels in couch positions 4 and 5. The phase separation models (middle column) seem to fit outlier points better, but at the expense of extra parameters in the model. The B-spline and the 2D linear and quadratic models seem to fit the data best, but they run the risk of overfitting. The linear and polynomial models can only model smooth lung motion, while the other models can model much more complex motions. The B-spline model seems to have a very oscilatory behaviour in the first few volumes, most evident in couch 2. In conclusion, all models fit these particular voxels well, and as we expected the more complex models give a better fit than the simpler models due to the fact that they have more parameters. All these models have been fit to every voxel in every couch position and volume, and the next section presents their evaluation using visual assessment, deformation field error, landmark error and AIC/BIC scores.
 
 \subsection*{Task 4 - Evaluation of the motion models}
 
@@ -583,7 +583,7 @@ The advantage of using all these different methods of assessing the models is th
 
 \subsection*{Task 5 - Parameter uncertainty}
 
-We estimated parameter uncertainty in the 3 basic models using 4 different methods. The reason why these were chosen is explained next to them:
+We estimated parameter uncertainty in the 3 basic models using 4 different methods. The reason why all 4 methods were chosen is explained next to them:
 \begin{itemize}
  \item \textbf{Parametric Bootstrap}: used because it assumes noise model is correct
  \item \textbf{Residual Bootstrap}: uses residual values instead of random samples from a noise model
@@ -591,7 +591,7 @@ We estimated parameter uncertainty in the 3 basic models using 4 different metho
  \item \textbf{MCMC}: used because it perturbs the parameters rather than the dataset 
  \end{itemize}
 
-Results for the linear, quadratic and cubuc models are plotted in figures \ref{fig:c5uncertM1}, \ref{fig:c5uncertM2} and \ref{fig:c5uncertM3} respectively. For all plots, we notice that the fitted values were always in the center of the 95\% confidence intervals and 2-sigma ranges. For each model, the value of the intercept (last parameter in each plot) is always around 157.5-158 while the value of the linear coefficient (penultimate parameter in each plot) is around 2.5-4. For the quadratic and cubic models, we notice that the coefficients of the quadratic and cubic terms are much smaller (betwen -1 and 0), suggesting that there is not much extra fit that these higher-order models can give. The corresponding parameter distribution for the parametric bootstraps are plotted in appendix figures \ref{fig:c5distM1}, \ref{fig:c5distM2} and \ref{fig:c5distM3} respectively.
+Results for the linear, quadratic and cubuc models are plotted in figures \ref{fig:c5uncertM1}, \ref{fig:c5uncertM2} and \ref{fig:c5uncertM3} respectively. For all plots, we notice that the fitted values were always in the center of the 95\% confidence intervals and 2-sigma ranges. For each model, the value of the intercept (last parameter in each plot) is always around 157.5-158 while the value of the linear coefficient (penultimate parameter in each plot) is around 2.5-4. For the quadratic and cubic models, we notice that the coefficients of the quadratic and cubic terms are much smaller (betwen -1 and 0), suggesting that there is not much extra fit that these higher-order models can give. The corresponding parameter distribution for the parametric bootstraps are plotted in appendix figures \ref{fig:c5distM1}, \ref{fig:c5distM2} and \ref{fig:c5distM3} respectively. Uncertainty has also been calculated for the other voxels but it was not plotted here due to the page limit. 
 
 
 \begin{figure}
@@ -671,7 +671,7 @@ Results for the linear, quadratic and cubuc models are plotted in figures \ref{f
 
 \section*{Discussion}
 % an interpretation and discussion of your results and the conclusion
-Our results show that correspondence models can be successfully used to predict lung motion, with a precision of approximatelly 2-3mm. It should be noted that part of the error also comes from the registration that didn't properly align the end-exhale Cine CT slice with the other slices. We also concluded that the cubic model is the most suitable, as it has the lowest AIC and BIC scores, followed by cubic with phase separation and quadratic. The 3 methods of evaluation (visual assessment, deformation field error and landmark error) yielded consistent results. Finally, we also calculated the ammount of uncertainty in the fitted parameters. 
+Our results show that correspondence models can be successfully used to predict lung motion, with a precision of approximatelly 2-3mm. It should be noted that part of the error also comes from the registration that didn't properly align the end-exhale Cine CT slice with the other slices. We also concluded that the cubic model is the most suitable, as it has the lowest AIC and BIC scores, followed by cubic with phase separation and quadratic. The 3 methods of evaluation (visual assessment, deformation field error and landmark error) yielded consistent results. Finally, we also calculated the ammount of uncertainty in the fitted parametersand found out that the uncertainty intervals are relatively small and centered at the fitted parameters. Future work should focus on improving the registration between the end-exhale Cine CT scan and the other scans and producing a better and faster fit using various correspondence models, keeping a balance between accuracy and the number of parameters.
 
 \bibliographystyle{unsrt}
 \bibliography{references}
