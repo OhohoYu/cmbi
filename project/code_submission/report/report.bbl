@@ -1,0 +1,46 @@
+\begin{thebibliography}{1}
+
+\bibitem{shirato2000physical}
+Hiroki Shirato, Shinichi Shimizu, Tatsuya Kunieda, Kei Kitamura, Marcel van
+  Herk, Kenji Kagei, Takeshi Nishioka, Seiko Hashimoto, Katsuhisa Fujita,
+  Hidefumi Aoyama, et~al.
+\newblock Physical aspects of a real-time tumor-tracking system for gated
+  radiotherapy.
+\newblock {\em International Journal of Radiation Oncology* Biology* Physics},
+  48(4):1187--1195, 2000.
+
+\bibitem{schweikard2000robotic}
+Achim Schweikard, Greg Glosser, Mohan Bodduluri, Martin~J Murphy, and John~R
+  Adler.
+\newblock Robotic motion compensation for respiratory movement during
+  radiosurgery.
+\newblock {\em Computer Aided Surgery}, 5(4):263--277, 2000.
+
+\bibitem{mcclelland20054d}
+JR~McClelland, AG~Chandler, JM~Blackall, S~Ahmad, DB~Landau, and DJ~Hawkes.
+\newblock 4d motion models over the respiratory cycle for use in lung cancer
+  radiotherapy planning.
+\newblock In {\em Medical Imaging}, pages 173--183. International Society for
+  Optics and Photonics, 2005.
+
+\bibitem{buerger2012nonrigid}
+Christian Buerger, RE~Clough, Andrew~P King, Tobias Schaeffter, and Claudia
+  Prieto.
+\newblock Nonrigid motion modeling of the liver from 3-d undersampled
+  self-gated golden-radial phase encoded mri.
+\newblock {\em Medical Imaging, IEEE Transactions on}, 31(3):805--815, 2012.
+
+\bibitem{manke2003novel}
+Dirk Manke, Kay Nehrke, and Peter B{\"o}rnert.
+\newblock Novel prospective respiratory motion correction approach for
+  free-breathing coronary mr angiography using a patient-adapted affine motion
+  model.
+\newblock {\em Magnetic Resonance in Medicine}, 50(1):122--131, 2003.
+
+\bibitem{shechter2004respiratory}
+Guy Shechter, Cengizhan Ozturk, Jon~R Resar, and Elliot~R McVeigh.
+\newblock Respiratory motion of the heart from free breathing coronary
+  angiograms.
+\newblock {\em Medical Imaging, IEEE Transactions on}, 23(8):1046--1056, 2004.
+
+\end{thebibliography}
